@@ -1,0 +1,145 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'me.tatarka:gradle-retrolambda:3.4.0'
+        classpath 'me.tatarka.retrolambda.projectlombok:lombok.ast:0.2.3.a2'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    }
+
+    configurations.classpath.exclude group: 'com.androoid.tools.external.lombok'
+}
+
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'com.neenbedankt.android-apt'
+
+repositories {
+    jcenter()
+
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.1'
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    defaultConfig {
+        minSdkVersion 16
+        targetSdkVersion 25
+
+        applicationId "com.sampleapplication"
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    productFlavors {
+        development {
+            minSdkVersion 21
+        }
+        production {
+            minSdkVersion 16
+        }
+    }
+
+    retrolambda {
+        jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home'
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('keystore/debug.keystore')
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+            storePassword 'android'
+        }
+    }
+}
+
+ext {
+    SUPPORT_LIBRARY_VERSION = "25.0.1"
+    PLAY_SERVICES_VERSION = "10.0.0"
+    RETROFIT_VERSION = "2.1.0"
+    OKHTTP_VERSION = "3.4.1"
+    BUTTERKNIFE_VERSION = "8.4.0"
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    // UI
+    compile "com.android.support:appcompat-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:cardview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:recyclerview-v7:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:design:$SUPPORT_LIBRARY_VERSION"
+    compile "com.android.support:customtabs:$SUPPORT_LIBRARY_VERSION"
+    compile 'com.android.support:multidex:1.0.1'
+
+    // Play services & Firebase
+    compile "com.google.android.gms:play-services-maps:$PLAY_SERVICES_VERSION"
+    compile "com.google.android.gms:play-services-analytics:$PLAY_SERVICES_VERSION"
+    compile "com.google.android.gms:play-services-location:$PLAY_SERVICES_VERSION"
+    compile "com.google.android.gms:play-services-auth:$PLAY_SERVICES_VERSION"
+
+    compile "com.google.firebase:firebase-messaging:$PLAY_SERVICES_VERSION"
+
+    // Networking
+    compile "com.squareup.retrofit2:retrofit:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:converter-gson:$RETROFIT_VERSION"
+    compile "com.squareup.retrofit2:adapter-rxjava:$RETROFIT_VERSION"
+    compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    // ReactiveX
+    compile 'io.reactivex:rxjava:1.2.3'
+    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'com.trello:rxlifecycle:1.0'
+    compile 'com.trello:rxlifecycle-components:1.0'
+    compile 'pl.charmas.android:android-reactive-location:0.10@aar'
+
+    // Beacon
+    compile 'com.github.AltBeacon:android-beacon-library:2.9.2-beta2'
+
+    // Other
+    compile 'com.github.tslamic.adn:library:1.1'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.3'
+    compile 'de.hdodenhof:circleimageview:2.1.0'
+
+    // Maps Utils
+    compile('com.google.maps.android:android-maps-utils:0.4.3') {
+        transitive = false
+    }
+
+    // ButterKnife
+    compile "com.jakewharton:butterknife:$BUTTERKNIFE_VERSION"
+    apt "com.jakewharton:butterknife-compiler:$BUTTERKNIFE_VERSION"
+
+    // Timber
+    compile 'com.jakewharton.timber:timber:4.4.0'
+
+    // Time utils
+    compile 'net.danlew:android.joda:2.9.5'
+
+    // BLE library to read beacon information
+    compile 'com.polidea.rxandroidble:rxandroidble:1.1.0'
+}
+
+//apply plugin: 'com.google.gms.google-services'
