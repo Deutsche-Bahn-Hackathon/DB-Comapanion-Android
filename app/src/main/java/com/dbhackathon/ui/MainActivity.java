@@ -1,9 +1,9 @@
-package com.sampleapplication.ui;
+package com.dbhackathon.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.sampleapplication.R;
+import com.dbhackathon.R;
 
 public class MainActivity extends AppCompatActivity {
 

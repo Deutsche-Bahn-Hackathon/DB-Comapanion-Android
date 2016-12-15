@@ -1,12 +1,12 @@
-package com.sampleapplication.data.network;
+package com.dbhackathon.data.network;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.provider.Settings;
 
-import com.sampleapplication.BuildConfig;
-import com.sampleapplication.util.Utils;
+import com.dbhackathon.BuildConfig;
+import com.dbhackathon.util.Utils;
 
 import java.io.IOException;
 

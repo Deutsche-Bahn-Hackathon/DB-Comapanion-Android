@@ -1,10 +1,10 @@
-package com.sampleapplication.data.network;
+package com.dbhackathon.data.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-import com.sampleapplication.util.Preconditions;
+import com.dbhackathon.util.Preconditions;
 
 /**
  * Utility class to check the current network status.

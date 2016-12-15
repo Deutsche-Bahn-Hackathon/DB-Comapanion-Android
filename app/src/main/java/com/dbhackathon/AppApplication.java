@@ -1,9 +1,9 @@
-package com.sampleapplication;
+package com.dbhackathon;
 
 import android.app.Application;
 
-import com.sampleapplication.data.network.RestClient;
-import com.sampleapplication.data.realm.RealmHelper;
+import com.dbhackathon.data.network.RestClient;
+import com.dbhackathon.data.realm.RealmHelper;
 
 import io.realm.Realm;
 import io.realm.log.LogLevel;

@@ -1,4 +1,4 @@
-package com.sampleapplication.data.network;
+package com.dbhackathon.data.network;
 
 public final class Endpoint {
 

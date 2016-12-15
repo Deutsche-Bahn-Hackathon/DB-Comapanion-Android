@@ -1,4 +1,4 @@
-package com.sampleapplication.util;
+package com.dbhackathon.util;
 
 import android.os.Looper;
 import android.support.annotation.NonNull;

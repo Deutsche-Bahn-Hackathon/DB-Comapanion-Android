@@ -1,4 +1,4 @@
-package com.sampleapplication.util;
+package com.dbhackathon.util;
 
 import android.content.Context;
 import android.os.Build;

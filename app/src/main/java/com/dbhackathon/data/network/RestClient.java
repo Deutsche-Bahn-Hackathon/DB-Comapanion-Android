@@ -1,8 +1,8 @@
-package com.sampleapplication.data.network;
+package com.dbhackathon.data.network;
 
 import android.content.Context;
 
-import com.sampleapplication.util.Preconditions;
+import com.dbhackathon.util.Preconditions;
 
 import java.util.concurrent.TimeUnit;
 

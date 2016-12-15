@@ -1,4 +1,4 @@
-package com.sampleapplication.data.realm;
+package com.dbhackathon.data.realm;
 
 import java.util.Locale;
 
