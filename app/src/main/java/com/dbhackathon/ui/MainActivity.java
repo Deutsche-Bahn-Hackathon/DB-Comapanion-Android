@@ -11,7 +11,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         // TODO: 12/16/16 change this to activity_main
-        setContentView(R.layout.activity_train);
+        setContentView(R.layout.activity_main);
     }
 
     @Override

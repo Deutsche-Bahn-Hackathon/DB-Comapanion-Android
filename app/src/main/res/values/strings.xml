@@ -8,5 +8,13 @@
     <string name="welcome_to_train">Welcome to %s!</string>
     <string name="train_from">From: %s</string>
     <string name="train_to">To: %s</string>
+    <string name="pick_an_action">Pick an action</string>
+    <string name="alert_on_exit">Alert on exit</string>
+    <string name="toilets">Toilets</string>
+    <string name="restaurants_bars"><![CDATA[Restaurants & bars]]></string>
+    <string name="attractions">Attractions</string>
+    <string name="survey">Survey</string>
+    <string name="statistics">Statistics</string>
+    <string name="nav_home">Home</string>
 
 </resources>
