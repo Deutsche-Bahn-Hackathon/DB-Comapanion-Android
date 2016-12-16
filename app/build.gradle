@@ -38,7 +38,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
 
-        applicationId "com.sampleapplication"
+        applicationId "com.dbhackathon"
         versionCode 1
         versionName "1.0.0"
     }
@@ -61,7 +61,7 @@ android {
     }
 
     retrolambda {
-        jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home'
+        jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_111.jdk/Contents/Home'
     }
 
     signingConfigs {
