@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+
+    <dimen name="dimen_4">4dp</dimen>
+    <dimen name="dimen_8">8dp</dimen>
+    <dimen name="dimen_10">10dp</dimen>
+    <dimen name="dimen_12">12dp</dimen>
+    <dimen name="dimen_16">16dp</dimen>
+    <dimen name="dimen_24">24dp</dimen>
+
+    <dimen name="fab_margin_bottom">16dp</dimen>
+
+    <dimen name="card_margin">8dp</dimen>
+    <dimen name="card_margin_small">4dp</dimen>
+    <dimen name="card_margin_full_width">-3dp</dimen>
+
+    <dimen name="recycler_padding">4dp</dimen>
+
+    <dimen name="card_elevation">2dp</dimen>
+
+    <dimen name="list_padding">4dp</dimen>
+
+    <dimen name="toolbar_elevation">4dp</dimen>
+
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+
+    <item name="body_1_spacing" format="float" type="dimen">1.2245</item>
+
+    <dimen name="peek_height">84dp</dimen>
+    <dimen name="peek_height_expanded">102dp</dimen>
+    <dimen name="max_height">400dp</dimen>
+
+    <dimen name="appbarHeight">56dp</dimen>
+
+    <dimen name="dialog_corners">4dp</dimen>
+
+    <dimen name="intro_bottom_bar_height">64dp</dimen>
+    <dimen name="intro_data_download_indicator_margin_bottom">72dp</dimen>
+
+    <dimen name="empty_state_margin">16dp</dimen>
+    <dimen name="empty_state_negative_margin_top">-56dp</dimen>
+
+    <dimen name="empty_state_circle_outer">164dp</dimen>
+    <dimen name="empty_state_circle_padding">46dp</dimen>
+    <dimen name="empty_state_title_top_margin">24dp</dimen>
+    <dimen name="empty_state_subtitle_top_margin">4dp</dimen>
+
+    <dimen name="line_course_big_circle_padding">8dp</dimen>
+
+    <dimen name="welcome_content_padding_top">152dp</dimen>
+
+    <dimen name="keyline_1">16dp</dimen>
+    <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_session_detail">@dimen/keyline_2</dimen>
+
+    <item name="h3_spacing" format="float" type="dimen">1.14285714286</item>
+
+    <dimen name="google_sign_in_box_height">112dp</dimen>
+    <dimen name="login_title_padding_top">56dp</dimen>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="route_header_height">136dp</dimen>
+
+    <dimen name="default_map_padding">48dp</dimen>
+
+</resources>

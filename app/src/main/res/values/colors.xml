@@ -1,6 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimaryDark">#D32F2F</color>
+    <color name="colorAccent">#F44336</color>
+
+    <color name="material_orange_50">#FFF3E0</color>
+    <color name="material_orange_500">#FF9800</color>
+    <color name="material_orange_700">#F57C00</color>
+
+    <color name="material_deep_orange_300">#FF8A65</color>
+    <color name="material_deep_orange_500">#FF7043</color>
+    <color name="material_deep_orange_600">#F4511E</color>
+    <color name="material_deep_orange_700">#E64A19</color>
+
+    <color name="material_indigo_500">#3F51B5</color>
+    <color name="material_indigo_700">#303F9F</color>
+
+    <color name="material_blue_400">#42A5F5</color>
+    <color name="material_blue_500">#2196F3</color>
+    <color name="material_blue_700">#1976D2</color>
+    <color name="material_blue_800">#1565C0</color>
+    <color name="material_blue_900">#0D47A1</color>
+
+    <color name="material_light_blue_500">#03A9F4</color>
+    <color name="material_light_blue_700">#0288D1</color>
+
+    <color name="material_pink_A200">#FF4081</color>
+
+    <color name="material_blue_A200">#448AFF</color>
+    <color name="material_blue_A700">#2962FF</color>
+
+    <color name="error_background">@color/material_red_400</color>
+
+    <color name="material_red_400">#EF5350</color>
+    <color name="material_red_500">#F44336</color>
+    <color name="material_red_700">#D32F2F</color>
+    <color name="material_red_900">#B71C1C</color>
+
+    <color name="material_green_500">#4CAF50</color>
+    <color name="material_green_700">#388E3C</color>
+
+    <color name="material_amber_A200">#FFD740</color>
+    <color name="material_amber_500">#FFC107</color>
+    <color name="material_amber_700">#FFA000</color>
+
+    <color name="material_teal_500">#009688</color>
+    <color name="material_teal_700">#00796B</color>
+
+    <color name="primary_light_blue">#34495e</color>
+
+    <color name="material_blue_grey_500">#607D8B</color>
+    <color name="material_blue_grey_800">#37474F</color>
+    <color name="material_blue_grey_900">#263238</color>
+
+    <color name="material_cyan_500">#90c9fe</color>
+    <color name="material_cyan_700">#85baea</color>
+    <color name="material_cyan_900">#7986cb</color>
+
+    <color name="material_light_green_500">#8BC34A</color>
+
+    <color name="grey_200">#EEEEEE</color>
+    <color name="grey_300">#E0E0E0</color>
+    <color name="grey_400">#BDBDBD</color>
+    <color name="grey_800">#424242</color>
+    <color name="grey_800_light">#E6424242</color>
+
+    <color name="card_background">#FFFFFF</color>
+    <color name="color_control">#FFFFFF</color>
+    <color name="light_grey">#F5F5F5</color>
+
+    <color name="marker_popup_text_default">#DE000000</color>
+    <color name="marker_popup_text_primary">#8A000000</color>
+
+    <color name="divider">#1F000000</color>
+    <color name="divider_light">#EEEEEE</color>
+
+    <color name="text_tertiary">#61000000</color>
+    <color name="text_secondary">#8A000000</color>
+    <color name="text_secondary_light">#B3FFFFFF</color>
+    <color name="text_primary">#DE000000</color>
+    <color name="text_primary_light">#FFFFFFFF</color>
+    <color name="text_link">#FF008094</color>
+    <color name="text_hint">#42000000</color>
+    <color name="text_primary_light_no_night">#FFFFFFFF</color>
+    <color name="text_secondary_light_no_night">#B3FFFFFF</color>
+
+    <color name="background_window">#EEEEEE</color>
+
+    <color name="color_button_normal">#3F83FC</color>
+
+    <color name="default_icon_color">@color/material_orange_500</color>
+    <color name="default_icon_color_inverted">@color/material_indigo_500</color>
+
+    <color name="icon_grey_light">#9E9E9E</color>
+    <color name="icon_grey">#757575</color>
+    <color name="icon_grey_dark">#424242</color>
+
 </resources>

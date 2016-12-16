@@ -1,11 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.Base"/>
+    <style name="AppTheme.NavigationDrawer" parent="Theme.NavigationDrawer"/>
+    <style name="AppTheme.Intro" parent="Theme.Intro"/>
+    <style name="AppTheme.Settings" parent="Theme.Settings"/>
+
+
+    <style name="BaseStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:actionMenuTextColor">@color/text_primary</item>
+        <item name="colorControlNormal">@color/color_control</item>
+
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColorPrimary">@color/text_secondary</item>
+        <item name="android:textColorSecondary">@color/text_tertiary</item>
+        <item name="android:textColorLink">@color/text_link</item>
+
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeStyle">@style/ActionMode</item>
+        <item name="android:actionModeStyle">@style/ActionMode</item>
+
+        <item name="android:windowBackground">@color/background_window</item>
+
+        <item name="android:borderlessButtonStyle">@style/Widget.AppCompat.Button.Borderless</item>
+        <item name="colorButtonNormal">@color/color_button_normal</item>
+    </style>
+
+    <style name="Theme.Intro" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:textColorLink">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+
+        <item name="colorButtonNormal">@color/color_button_normal</item>
+    </style>
+
+    <style name="Theme.Base" parent="BaseStyle">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/text_primary</item>
+    </style>
+
+    <style name="Theme.Settings" parent="BaseStyle">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="colorControlNormal">@color/colorAccent</item>
+
+        <item name="actionBarTheme">@style/AppTheme.Settings.ActionBar</item>
+        <item name="actionBarWidgetTheme">@style/AppTheme.Settings.ActionBar</item>
+    </style>
+
+    <style name="Theme.NavigationDrawer" parent="Theme.Base">
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+    </style>
+
+
+    <style name="Theme.Search" parent="BaseStyle">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="autoCompleteTextViewStyle">@style/Theme.Search.AutoCompleteTextView</item>
+        <item name="searchViewStyle">@style/Theme.SearchView</item>
+        <item name="colorControlNormal">@color/text_hint</item>
+    </style>
+
+    <style name="Theme.Search.AutoCompleteTextView"
+           parent="Widget.AppCompat.Light.AutoCompleteTextView">
+        <item name="android:textColorHint">@color/text_hint</item>
+        <item name="android:textColor">@color/text_primary</item>
+
+        <!-- If set to @null the cursor will be displayed using android:textColor -->
+        <item name="android:textCursorDrawable">@null</item>
+    </style>
+
+    <style name="Theme.SearchView" parent="Widget.AppCompat.SearchView">
+        <item name="searchHintIcon">@null</item>
+        <item name="queryBackground">@null</item>
+        <item name="submitBackground">@null</item>
+    </style>
+
+
+    <!-- ===================================== TEXTINPUTLAYOUT ==================================-->
+
+    <style name="TextInputLayout.Teal" parent="Widget.Design.TextInputLayout">
+        <item name="colorPrimary">@color/material_teal_500</item>
+        <item name="colorPrimaryDark">@color/material_teal_500</item>
+        <item name="colorAccent">@color/material_teal_500</item>
+        <item name="colorControlNormal">@color/material_teal_500</item>
+    </style>
+
+    <style name="TextInputLayout.Hint" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">@color/material_teal_500</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextInputLayout.White" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/text_secondary_light</item>
+        <item name="colorControlHighlight">@color/text_primary_light</item>
+        <item name="colorControlActivated">@color/text_primary_light</item>
+    </style>
+
+    <style name="TextInputLayout.Grey" parent="Widget.Design.TextInputLayout">
+        <item name="colorControlNormal">@color/text_hint</item>
+        <item name="colorControlHighlight">?colorAccent</item>
+        <item name="colorControlActivated">?colorAccent</item>
+    </style>
+
+    <style name="TextInputLayout.Error" parent="TextAppearance.Design.Error">
+        <item name="android:textColor">@color/material_red_700</item>
+    </style>
+
+    <style name="TextInputLayout.Red" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">#f6655c</item>
+        <item name="android:textColorPrimary">#f6655c</item>
+        <item name="android:textColorSecondary">#f6655c</item>
+
+        <item name="colorControlNormal">@color/text_secondary_light</item>
+        <item name="colorControlHighlight">@color/text_primary_light</item>
+        <item name="colorControlActivated">@color/text_primary_light</item>
+    </style>
+
+
+    <!-- =================================== COLLAPSING TOOLBAR =================================-->
+
+    <style name="CollapsingToolbar.Expanded"
+           parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="CollapsingToolbar.Collapsed"
+           parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+
+    <!-- ======================================== TOOLBAR =======================================-->
+
+    <style name="ToolbarOverlay">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
+        <item name="windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="MenuOverlay" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:colorBackground">@color/background_window</item>
+        <item name="android:textColor">@color/text_primary</item>
+    </style>
+
+    <style name="ActionMode" parent="@style/Widget.AppCompat.ActionMode">
+        <item name="android:actionModeBackground">@color/material_indigo_500</item>
+        <item name="actionModeBackground">@color/material_indigo_500</item>
+        <item name="android:background">@color/material_indigo_500</item>
+        <item name="background">@color/material_indigo_500</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="ActionBarPopupThemeOverlay" parent="ThemeOverlay.AppCompat.Dark"/>
+
+    <style name="AppTheme.Settings.ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="colorControlNormal">@color/color_control</item>
+    </style>
+
+    <style name="SubtitleAppearance" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+
+    <!-- ===================================== TEXTAPPEARANCE ===================================-->
+
+    <style name="Body1Text">
+        <item name="android:textAppearance">@style/TextAppearance.Body1</item>
+        <item name="android:lineSpacingMultiplier">@dimen/body_1_spacing</item>
+    </style>
+
+    <style name="TextAppearance.Body1" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14sp
+        </item> <!-- bug in AppCompat, can remove this when it's fixed -->
+        <item name="android:textColor">?android:textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.Title" parent="TextAppearance.AppCompat.Title">
+        <item name="android:fontFamily">sans-serif-medium</item>
+    </style>
+
+
+    <!-- ========================================= VARIOUS =====================================-->
+
+    <style name="DialogStyle" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColorPrimary">@color/text_secondary</item>
+
+        <item name="buttonStyle">@style/DialogButtonStyle</item>
+        <item name="android:buttonStyle">@style/DialogButtonStyle</item>
+    </style>
+
+    <style name="DatePickerStyle" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:windowBackground">@color/card_background</item>
+
+        <item name="buttonStyle">@style/DialogButtonStyle</item>
+        <item name="android:buttonStyle">@style/DialogButtonStyle</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:textColor">@color/material_teal_500</item>
+    </style>
+
+    <style name="CheckBox" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/material_indigo_500</item>
+        <item name="android:actionMenuTextColor">@color/text_secondary</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:textColorPrimary">@color/text_secondary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
+        <item name="colorControlNormal">@color/text_secondary</item>
+    </style>
+
+    <style name="NavigationOverlay">
+        <item name="android:textSize">14sp</item>
+        <item name="colorPrimary">@color/default_icon_color_inverted</item>
+
+        <item name="android:textColorSecondary">@color/icon_grey</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ColorButton" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/material_blue_A700</item>
     </style>
 
 </resources>
