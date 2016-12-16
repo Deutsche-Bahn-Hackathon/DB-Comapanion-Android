@@ -276,7 +276,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
         }
 
         // launch the target Activity after a short delay, to allow the close animation to play
-        mHandler.postDelayed(() -> goToNavDrawerItem(itemId), NAVDRAWER_LAUNCH_DELAY);
+//        mHandler.postDelayed(() -> goToNavDrawerItem(itemId), NAVDRAWER_LAUNCH_DELAY);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                goToNavDrawerItem(itemId);
+            }
+        }, NAVDRAWER_LAUNCH_DELAY);
 
         // fade out the main content
         View mainContent = findViewById(R.id.main_content);

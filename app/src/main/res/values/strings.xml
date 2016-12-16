@@ -5,5 +5,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="welcome_to_train">Welcome to %s!</string>
+    <string name="train_from">From: %s</string>
+    <string name="train_to">To: %s</string>
 
 </resources>

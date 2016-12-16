@@ -61,7 +61,13 @@ android {
     }
 
     retrolambda {
-        jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home'
+        if (Os.isFamily(Os.FAMILY_MAC)) {
+            jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home'
+        } else if (Os.isFamily(Os.FAMILY_UNIX)) {
+            jdk '/usr/lib/jvm/java-1.8.0-openjdk-amd64/'
+        } else {
+            throw new GradleException('Windows jdk path needs to be inserted!')
+        }
     }
 
     signingConfigs {
