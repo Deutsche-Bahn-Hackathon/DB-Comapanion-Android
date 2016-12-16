@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_main"
             android:icon="@mipmap/ic_launcher"
             android:title="MAIN"/>
+
+        <item
+            android:id="@+id/nav_station"
+            android:icon="@drawable/ic_store_white_24dp"
+            android:title="Station"/>
+
     </group>
 
 </menu>

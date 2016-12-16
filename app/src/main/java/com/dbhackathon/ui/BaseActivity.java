@@ -19,8 +19,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.dbhackathon.BuildConfig;
 import com.dbhackathon.R;
+import com.dbhackathon.ui.station.StationActivity;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.android.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -62,6 +62,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
 
     protected static final int NAVDRAWER_ITEM_MAIN = R.id.nav_main;
+    protected static final int NAVDRAWER_ITEM_STATION = R.id.nav_station;
 
     /**
      * Delay to launch nav drawer item, to allow close animation to play
@@ -74,8 +75,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
      */
     private static final int MAIN_CONTENT_FADEOUT_DURATION = 150;
     private static final int MAIN_CONTENT_FADEIN_DURATION = 300;
-
-    public static boolean DEBUG_VISIBLE = BuildConfig.DEBUG;
 
     /**
      * Toolbar
@@ -258,6 +257,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
         switch (item) {
             case NAVDRAWER_ITEM_MAIN:
                 createBackStack(new Intent(this, MainActivity.class));
+                break;
+            case NAVDRAWER_ITEM_STATION:
+                createBackStack(new Intent(this, StationActivity.class));
                 break;
             default:
                 throw new IllegalStateException("Unknown nav drawer item id " + item);
