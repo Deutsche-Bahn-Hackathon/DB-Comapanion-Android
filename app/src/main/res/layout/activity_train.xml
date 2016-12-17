@@ -44,6 +44,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/train_title_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/welcome_to_train"
@@ -51,6 +52,7 @@
                             android:textSize="28sp"/>
 
                         <TextView
+                            android:id="@+id/train_departure_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="8dp"
@@ -59,6 +61,7 @@
                             android:textSize="14sp"/>
 
                         <TextView
+                            android:id="@+id/train_arrival_text"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/train_to"

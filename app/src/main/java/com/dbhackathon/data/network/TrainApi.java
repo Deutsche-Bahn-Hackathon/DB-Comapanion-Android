@@ -7,12 +7,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import rx.Observable;
 
-/**
- * Created on 12/17/16.
- *
- * @author Martin Fink
- */
-
 public interface TrainApi {
 
     @GET(Endpoint.STATIONS)

@@ -3,8 +3,10 @@ package com.dbhackathon.beacon.notification;
 import android.content.Context;
 
 import com.dbhackathon.beacon.train.TrainBeacon;
+import com.dbhackathon.data.model.DateTime;
 import com.dbhackathon.data.model.JsonSerializable;
 import com.dbhackathon.data.model.Station;
+import com.dbhackathon.data.model.Train;
 import com.dbhackathon.data.model.VdvStation;
 
 import java.util.ArrayList;
@@ -124,6 +126,19 @@ public class CurrentTrip implements JsonSerializable {
 
     public List<Station> getPath() {
         return path;
+    }
+
+
+    public Train toTrain() {
+        return Train.create(
+                beacon.getLine(),
+                beacon.getType(),
+                String.valueOf(beacon.getStation().id()),
+                beacon.getStation().name(),
+                DateTime.create("", 0, ""),
+                "",
+                ""
+        );
     }
 
 

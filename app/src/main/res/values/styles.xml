@@ -81,11 +81,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
+        <item name="android:windowTranslucentStatus">true</item>
+
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="autoCompleteTextViewStyle">@style/Theme.Search.AutoCompleteTextView</item>
         <item name="searchViewStyle">@style/Theme.SearchView</item>
-        <item name="colorControlNormal">@color/text_hint</item>
+        <item name="colorControlNormal">@color/color_control</item>
     </style>
 
     <style name="Theme.Search.AutoCompleteTextView"
@@ -264,6 +266,11 @@
 
     <style name="ColorButton" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/material_blue_A700</item>
+    </style>
+
+    <style name="SearchViewTheme" parent="ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textColorPrimary">@color/app_body_text_1</item>
+        <item name="colorControlNormal">@color/text_hint</item>
     </style>
 
 </resources>

@@ -16,6 +16,10 @@ public class TrainBeacon extends AbsBeacon implements JsonSerializable {
     // ======================================== LISTS ==============================================
 
     public String getLine() {
+        return "ICE 1206";
+    }
+
+    public String getType() {
         return "ICE";
     }
 

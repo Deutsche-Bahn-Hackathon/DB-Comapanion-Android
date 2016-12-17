@@ -2,8 +2,16 @@ package com.dbhackathon;
 
 public class Config {
 
-    public static final String EXTRA_COFFEE = "com.dbhackathon.EXTRA_COFFEE";
+    // ======================================= CONSTANTS ===========================================
 
+    public static final int[] REFRESH_COLORS = {
+            R.color.colorPrimary
+    };
+
+
+    // ====================================== INTENT EXTRAS ========================================
+
+    public static final String EXTRA_COFFEE = "com.dbhackathon.EXTRA_COFFEE";
 
     public static final String EXTRA_STATION = "com.dbhackathon.EXTRA_STATION";
     public static final String EXTRA_STATION_ID = "com.dbhackathon.EXTRA_STATION_ID";

@@ -6,12 +6,6 @@ import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 
-/**
- * Created on 12/17/16.
- *
- * @author Martin Fink
- */
-
 @AutoValue
 public abstract class DateTime implements Parcelable {
 

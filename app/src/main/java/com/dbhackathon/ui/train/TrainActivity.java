@@ -5,16 +5,18 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AlertDialog;
 import android.util.SparseArray;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.BaseActivity;
+import com.dbhackathon.ui.toilet.ToiletActivity;
 import com.dbhackathon.util.Utils;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -22,8 +24,14 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
-public class TrainActivity extends BaseActivity implements View.OnClickListener {
+public class TrainActivity extends BaseActivity implements View.OnClickListener,
+        View.OnTouchListener {
+
+    @BindView(R.id.train_title_text) TextView mTitleText;
+    @BindView(R.id.train_departure_text) TextView mDepartureText;
+    @BindView(R.id.train_arrival_text) TextView mArrivalText;
 
     @BindView(R.id.train_action_alarm) RelativeLayout mActionAlarm;
     @BindView(R.id.train_action_bar) RelativeLayout mActionBars;
@@ -34,6 +42,13 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
 
     private Train mTrain;
 
+    /**
+     * Needed for the search activity circular reveal.
+     */
+    private float lastTouchX;
+    private float lastTouchY;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,13 +58,13 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
 
         Intent intent = getIntent();
 
-        /*if (!intent.hasExtra(Config.EXTRA_TRAIN)) {
+        if (!intent.hasExtra(Config.EXTRA_TRAIN)) {
             Timber.e("Missing intent extra %s", Config.EXTRA_TRAIN);
             finish();
             return;
         }
 
-        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);*/
+        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
 
         mActionAlarm.setOnClickListener(this);
         mActionBars.setOnClickListener(this);
@@ -57,6 +72,12 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
         mActionAttractions.setOnClickListener(this);
         mActionSurveys.setOnClickListener(this);
         mActionStatistics.setOnClickListener(this);
+
+        mActionToilets.setOnTouchListener(this);
+
+        mTitleText.setText(getString(R.string.welcome_to_train, mTrain.name()));
+        mDepartureText.setText(getString(R.string.train_from, "Munich Hbf"));
+        mArrivalText.setText(getString(R.string.train_to, mTrain.stop()));
     }
 
     @Override
@@ -74,12 +95,18 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.train_action_toilets:
-                new AlertDialog.Builder(this, R.style.DialogStyle)
+                Intent intent = new Intent(this, ToiletActivity.class);
+                intent.putExtra(Config.EXTRA_TRAIN, mTrain);
+                intent.putExtra(ToiletActivity.EXTRA_X_POS, lastTouchX);
+                intent.putExtra(ToiletActivity.EXTRA_Y_POS, lastTouchY);
+                startActivityForResult(intent, 0);
+
+                /*new AlertDialog.Builder(this, R.style.DialogStyle)
                         .setTitle(getString(R.string.toilets))
                         .setMessage("Please walk in direction of travel for two wagons!")
                         .setNeutralButton(android.R.string.ok, null)
                         .create()
-                        .show();
+                        .show();*/
                 break;
             case R.id.train_action_attractions:
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
@@ -91,12 +118,6 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
         }
-    }
-
-    private void scanQRCode() {
-        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-        startActivityForResult(cameraIntent, Config.CAMERA_PIC_REQUEST);
     }
 
     @Override
@@ -129,5 +150,21 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            lastTouchX = event.getRawX();
+            lastTouchY = event.getRawY();
+        }
+
+        return false;
+    }
+
+    private void scanQRCode() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        startActivityForResult(cameraIntent, Config.CAMERA_PIC_REQUEST);
     }
 }
