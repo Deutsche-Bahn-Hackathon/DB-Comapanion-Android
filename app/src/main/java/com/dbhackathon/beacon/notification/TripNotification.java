@@ -146,7 +146,7 @@ public final class TripNotification {
     }
 
     private static void setCommonNotification(Context context, RemoteViews remoteViews, CurrentTrip trip) {
-        remoteViews.setTextViewText(R.id.notification_bus_line, trip.beacon.getLine());
+        remoteViews.setTextViewText(R.id.notification_bus_line, trip.beacon.getType());
 
         remoteViews.setImageViewBitmap(R.id.notification_bus_image, getNotificationIcon(context,
                 ContextCompat.getColor(context, R.color.material_red_500)));

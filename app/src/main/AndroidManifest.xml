@@ -28,7 +28,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.dbhackathon.ui.main.MainActivity"
+            android:name="com.dbhackathon.ui.LauncherActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NavigationDrawer">
 
@@ -39,15 +39,14 @@
         </activity>
 
         <activity
+            android:name="com.dbhackathon.ui.main.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NavigationDrawer" />
+
+        <activity
             android:name="com.dbhackathon.ui.station.StationActivity"
             android:label="@string/title_station"
-            android:theme="@style/AppTheme.NavigationDrawer">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NavigationDrawer" />
 
         <activity
             android:name="com.dbhackathon.ui.coffee.CoffeeActivity"
@@ -58,12 +57,7 @@
             android:name=".ui.train.TrainActivity"
             android:label="@string/train"
             android:theme="@style/AppTheme.NavigationDrawer"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
-        </activity>
+            android:exported="true" />
 
 
         <!-- Services -->

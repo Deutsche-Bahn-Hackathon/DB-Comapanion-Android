@@ -1,5 +1,6 @@
 package com.dbhackathon.ui.station;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
@@ -13,6 +14,7 @@ import com.dbhackathon.ui.widget.TabsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import timber.log.Timber;
 
 public class StationActivity extends BaseActivity {
 
@@ -30,20 +32,17 @@ public class StationActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Bundle bundle = getIntent().getExtras();
-
-        if (bundle == null) {
-            throw new IllegalArgumentException("Some arguments are missing!");
-        }
-
-        mStation = bundle.getParcelable(Config.EXTRA_STATION);
-
-        if (mStation == null) {
-            throw new IllegalArgumentException("EXTRA_STATION cannot be null!");
-        }
-
         setContentView(R.layout.activity_station);
         ButterKnife.bind(this);
+
+        Intent intent = getIntent();
+        if (!intent.hasExtra(Config.EXTRA_STATION)) {
+            Timber.e("Missing intent extra %s", Config.EXTRA_STATION);
+            finish();
+            return;
+        }
+
+        mStation = intent.getParcelableExtra(Config.EXTRA_STATION);
 
         mAdapter = new TabsAdapter(getSupportFragmentManager());
 
