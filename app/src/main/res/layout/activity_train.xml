@@ -258,7 +258,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_timeline_black_24dp"
+                                android:src="@drawable/ic_timeline_white_24dp"
                                 android:tint="?colorAccent"/>
 
                             <TextView

@@ -21,7 +21,7 @@ import timber.log.Timber;
 
 public final class StationBeaconHandler extends AbsBeaconHandler {
 
-    public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab8";
+    public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab9";
     public static final String IDENTIFIER = "STATION";
 
     private final Map<Integer, StationBeacon> mBeaconMap = new ConcurrentHashMap<>();
