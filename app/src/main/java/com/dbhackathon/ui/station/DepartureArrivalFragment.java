@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.data.model.TrainResponse;
@@ -52,8 +53,8 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
             throw new IllegalArgumentException("Trains cannot be null!");
         }
 
-        id = bundle != null ? bundle.getString(StationActivity.BUNDLE_STATION_ID) : id;
-        departures_arrivals = bundle != null ? bundle.getString(StationActivity.BUNDLE_DEPARTURES_ARRIVALS) : departures_arrivals;
+        id = bundle != null ? bundle.getString(Config.EXTRA_STATION_ID) : id;
+        departures_arrivals = bundle != null ? bundle.getString(Config.EXTRA_DEPARTURES_ARRIVALS) : departures_arrivals;
 
         mTrainAdapter = new TrainAdapter();
 
@@ -92,7 +93,7 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
 
                     @Override
                     public void onNext(TrainResponse trainResponse) {
-                        mTrains = departures_arrivals.equals(StationActivity.BUNDLE_DEPARTURES) ? trainResponse.departures() : trainResponse.arrivals();
+                        mTrains = departures_arrivals.equals(Config.EXTRA_DEPARTURES) ? trainResponse.departures() : trainResponse.arrivals();
                         mTrainAdapter.setItems(mTrains);
                     }
                 });
