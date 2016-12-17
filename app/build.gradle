@@ -155,4 +155,4 @@ dependencies {
     compile 'com.polidea.rxandroidble:rxandroidble:1.1.0'
 }
 
-//apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'
