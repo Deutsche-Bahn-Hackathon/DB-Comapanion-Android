@@ -25,7 +25,7 @@ public final class RestClient {
     }
 
     public static void init(Context context) {
-        Preconditions.checkNotNull(context, "context == null");
+        Preconditions.checkNotNull(context, "context = null");
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new NetworkInterceptor(context))

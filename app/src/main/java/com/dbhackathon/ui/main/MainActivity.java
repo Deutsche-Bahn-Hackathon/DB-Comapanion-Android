@@ -1,17 +1,27 @@
-package com.dbhackathon.ui;
+package com.dbhackathon.ui.main;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 
 import com.dbhackathon.R;
+import com.dbhackathon.ui.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
+
+    @BindView(R.id.recycler) RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // TODO: 12/16/16 change this to activity_main
         setContentView(R.layout.activity_main);
+
+        ButterKnife.bind(this);
+
+
     }
 
     @Override

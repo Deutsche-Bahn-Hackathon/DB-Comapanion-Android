@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.dbhackathon.ui.MainActivity"
+            android:name="com.dbhackathon.ui.main.MainActivity"
             android:theme="@style/AppTheme.NavigationDrawer"
             android:label="@string/app_name">
 
