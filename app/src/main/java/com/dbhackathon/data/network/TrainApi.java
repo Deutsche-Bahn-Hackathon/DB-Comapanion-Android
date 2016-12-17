@@ -1,5 +1,6 @@
 package com.dbhackathon.data.network;
 
+import com.dbhackathon.data.model.PoiResponse;
 import com.dbhackathon.data.model.StationResponse;
 import com.dbhackathon.data.model.TrainResponse;
 
@@ -15,4 +16,6 @@ public interface TrainApi {
     @GET(Endpoint.DEPARTURES_ARRIVALS)
     Observable<TrainResponse> getArrivals(@Path("id") String id, @Path("departures_arrivals") String departures_arrivals);
 
+    @GET(Endpoint.POIS)
+    Observable<PoiResponse> getPois(@Path("lat") double lat, @Path("lng") double lng);
 }

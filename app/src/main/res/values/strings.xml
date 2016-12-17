@@ -33,5 +33,6 @@
     <string name="line_details_current_stop">Now at %s</string>
     <string name="could_not_recognize_qr">Could not recognize QR-code</string>
     <string name="retry">Retry</string>
+    <string name="poi">Point of interest</string>
 
 </resources>

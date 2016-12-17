@@ -10,6 +10,7 @@ public final class Endpoint {
 
     public static final String FACILITY_TOILETS = "train/{train}/wagon/{wagon}/next/toilet";
     public static final String FACILITY_RESTAURANT = "train/{train}/wagon/{wagon}/next/restaurant";
+    public static final String POIS = "pois/{lat}/{lng}";
 
     private Endpoint() {
     }

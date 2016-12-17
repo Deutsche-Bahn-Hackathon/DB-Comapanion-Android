@@ -2,6 +2,8 @@ package com.dbhackathon.util.iwillkillmyselfnow;
 
 import com.dbhackathon.data.model.DateTime;
 import com.dbhackathon.data.model.Facility;
+import com.dbhackathon.data.model.Poi;
+import com.dbhackathon.data.model.PoiResponse;
 import com.dbhackathon.data.model.Station;
 import com.dbhackathon.data.model.StationResponse;
 import com.dbhackathon.data.model.Train;
@@ -19,6 +21,7 @@ import com.google.gson.reflect.TypeToken;
 
 public class AutoValueGsonAdapterFactory implements TypeAdapterFactory {
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> type) {
         Class<? super T> rawType = type.getRawType();
@@ -35,6 +38,10 @@ public class AutoValueGsonAdapterFactory implements TypeAdapterFactory {
             return (TypeAdapter<T>) DateTime.typeAdapter(gson);
         } else if (rawType.equals(Facility.class)) {
             return (TypeAdapter<T>) Facility.typeAdapter(gson);
+        } else if (rawType.equals(Poi.class)) {
+            return (TypeAdapter<T>) Poi.typeAdapter(gson);
+        } else if (rawType.equals(PoiResponse.class)) {
+            return (TypeAdapter<T>) PoiResponse.typeAdapter(gson);
         }
 
         return null;
