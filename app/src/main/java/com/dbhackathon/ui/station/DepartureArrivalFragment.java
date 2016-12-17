@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
+import com.dbhackathon.util.Utils;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
 import java.util.List;
@@ -18,7 +19,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DepartureArrivalFragment extends RxFragment implements TrainAdapter.ActionListener<Train> {
+public class DepartureArrivalFragment extends RxFragment implements Utils.ActionListener<Train> {
 
     private List<Train> mTrains;
 
