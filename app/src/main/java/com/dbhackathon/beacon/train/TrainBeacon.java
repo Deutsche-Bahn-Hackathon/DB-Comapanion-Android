@@ -20,6 +20,6 @@ public class TrainBeacon extends AbsBeacon implements JsonSerializable {
     }
 
     public Station getStation() {
-        return Station.create(8000228, "", "Lichtenfels", "", 0, "");
+        return Station.create("8000228", "Lichtenfels", "50.145994", "11.059966");
     }
 }

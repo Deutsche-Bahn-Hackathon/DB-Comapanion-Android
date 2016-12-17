@@ -57,8 +57,8 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     public void onBindViewHolder(StationViewHolder holder, int position) {
         Station station = mItems.get(position);
 
-        holder.city.setText(station.city());
         holder.name.setText(station.name());
+        holder.latLng.setText(String.format("%s,%s", station.lat(), station.lng()));
     }
 
     @Override
@@ -69,7 +69,7 @@ public class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationV
     class StationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         @BindView(R.id.item_station_name) TextView name;
-        @BindView(R.id.item_station_city) TextView city;
+        @BindView(R.id.item_station_lat_lng) TextView latLng;
 
         public StationViewHolder(View itemView) {
             super(itemView);
