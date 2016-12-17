@@ -14,7 +14,7 @@
     <string name="train_to">To %s</string>
     <string name="pick_an_action">Pick an action</string>
     <string name="alert_on_exit">Alert on exit</string>
-    <string name="toilets">Toilets</string>
+    <string name="toilets">Nearest toilet</string>
     <string name="restaurants_bars"><![CDATA[Restaurants & bars]]></string>
     <string name="attractions">Attractions</string>
     <string name="survey">Survey</string>
@@ -22,6 +22,8 @@
     <string name="nav_home">Home</string>
     <string name="track_num">Track %s</string>
     <string name="train">Train</string>
+    <string name="enter_seat">Enter your seat</string>
+    <string name="order_coffee">Order a coffee</string>
 
 
 
