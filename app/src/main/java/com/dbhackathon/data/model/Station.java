@@ -7,12 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.SerializedName;
 
-/**
- * Created on 12/16/16.
- *
- * @author Martin Fink
- */
-
 @AutoValue
 public abstract class Station implements Parcelable {
 

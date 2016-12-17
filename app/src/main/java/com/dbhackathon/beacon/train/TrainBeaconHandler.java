@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.SystemClock;
+import android.support.annotation.Nullable;
 
 import com.dbhackathon.beacon.AbsBeaconHandler;
 import com.dbhackathon.beacon.BeaconStorage;
@@ -12,8 +13,10 @@ import com.dbhackathon.beacon.notification.TripNotification;
 
 import org.altbeacon.beacon.Beacon;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -216,5 +219,19 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
         } else {
             Timber.i("Current trip has no notification.");
         }
+    }
+
+
+    @Nullable
+    private TrainBeacon getNearestBeacon() {
+        List<TrainBeacon> list = new ArrayList<>(mBeaconMap.values());
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        Collections.sort(list, (o1, o2) -> (int) (o1.distance - o2.distance));
+
+        return list.get(0);
     }
 }

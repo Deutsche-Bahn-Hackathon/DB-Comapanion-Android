@@ -10,7 +10,9 @@ import com.dbhackathon.beacon.notification.TripNotification;
 import com.dbhackathon.beacon.station.StationBeacon;
 import com.dbhackathon.beacon.train.TrainBeacon;
 import com.dbhackathon.util.Utils;
+import com.dbhackathon.util.iwillkillmyselfnow.AutoValueGsonAdapterFactory;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -45,7 +47,9 @@ public final class BeaconStorage {
     private CurrentTrip mCurrentTrip;
     private StationBeacon mCurrentBusStop;
 
-    private static final Gson GSON = new Gson();
+    private static final Gson GSON = new GsonBuilder()
+            .registerTypeAdapterFactory(new AutoValueGsonAdapterFactory())
+            .create();
 
     private BeaconStorage(Context context) {
         mContext = context;

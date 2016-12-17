@@ -59,6 +59,13 @@
             android:theme="@style/AppTheme.NavigationDrawer"
             android:exported="true" />
 
+        <activity
+            android:name=".ui.toilet.ToiletActivity"
+            android:exported="false"
+            android:label="@string/title_toilets"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Search" />
+
 
         <!-- Services -->
 
