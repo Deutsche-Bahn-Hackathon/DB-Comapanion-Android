@@ -2,171 +2,288 @@
 
 
 <android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <include layout="@layout/include_toolbar"/>
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:popupTheme="@style/MenuOverlay">
+            android:layout_height="match_parent"
+            android:layout_marginTop="?attr/actionBarSize">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                android:background="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways|snap"
-                app:popupTheme="@style/MenuOverlay"/>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="?android:actionBarSize"
-            android:orientation="vertical">
-
-            <android.support.v7.widget.CardView
-                android:id="@+id/card_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_margin"
-                android:layout_marginEnd="@dimen/card_margin"
-                android:layout_marginLeft="@dimen/card_margin"
-                android:layout_marginRight="@dimen/card_margin"
-                android:layout_marginStart="@dimen/card_margin"
-                android:layout_marginTop="@dimen/card_margin"
-                card_view:cardBackgroundColor="@color/card_background"
-                card_view:cardCornerRadius="4dp"
-                card_view:cardElevation="@dimen/card_elevation">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="@dimen/card_margin_full_width"
+                    android:layout_marginLeft="@dimen/card_margin_full_width"
+                    android:layout_marginRight="@dimen/card_margin_full_width"
+                    android:layout_marginStart="@dimen/card_margin_full_width"
+                    card_view:cardBackgroundColor="@color/card_background"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="@dimen/card_elevation">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/welcome_to_train"
-                        android:textColor="@color/text_primary"
-                        android:textSize="24sp"/>
-
-                    <View
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/divider"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/train_from"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp"/>
+                        android:layout_margin="16dp"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/welcome_to_train"
+                            android:textColor="@color/text_primary"
+                            android:textSize="28sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/train_from"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/train_to"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp"/>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="@dimen/card_margin_full_width"
+                    android:layout_marginLeft="@dimen/card_margin_full_width"
+                    android:layout_marginRight="@dimen/card_margin_full_width"
+                    android:layout_marginStart="@dimen/card_margin_full_width"
+                    android:layout_marginTop="8dp"
+                    card_view:cardBackgroundColor="@color/card_background"
+                    card_view:cardCornerRadius="0dp"
+                    card_view:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/train_to"
-                        android:textColor="@color/text_primary"
-                        android:textSize="16sp"/>
+                        android:orientation="vertical"
+                        android:paddingBottom="4dp"
+                        android:paddingTop="4dp">
 
-                </LinearLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="@dimen/padding_normal"
+                            android:layout_marginStart="@dimen/padding_normal"
+                            android:layout_marginTop="12dp"
+                            android:text="Pick an action"
+                            android:textColor="?colorAccent"
+                            android:textStyle="bold"/>
 
-            </android.support.v7.widget.CardView>
+                        <RelativeLayout
+                            android:id="@+id/train_action_alarm"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/pick_an_action"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_access_alarm_white_24dp"
+                                android:tint="?colorAccent"/>
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_access_alarm_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/alert_on_exit"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/alert_on_exit"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_local_bar_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/restaurants_bars"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                        </RelativeLayout>
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_event_seat_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/toilets"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                        <RelativeLayout
+                            android:id="@+id/train_action_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_account_balance_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/attractions"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_local_bar_white_24dp"
+                                android:tint="?colorAccent"/>
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_assessment_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/survey"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/restaurants_bars"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
 
-            <Button
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawablePadding="8dp"
-                android:drawableStart="@drawable/ic_timeline_black_24dp"
-                android:gravity="center_vertical"
-                android:text="@string/statistics"
-                android:textColor="@color/text_primary"
-                android:textSize="16sp"/>
+                        </RelativeLayout>
 
+                        <RelativeLayout
+                            android:id="@+id/train_action_toilets"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
 
-        </LinearLayout>
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_event_seat_white_24dp"
+                                android:tint="?colorAccent"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/toilets"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/train_action_attractions"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_account_balance_white_24dp"
+                                android:tint="?colorAccent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/attractions"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/train_action_survey"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_assessment_white_24dp"
+                                android:tint="?colorAccent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/survey"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/train_action_statistics"
+                            android:layout_width="match_parent"
+                            android:layout_height="56dp"
+                            android:background="?attr/selectableItemBackground">
+
+                            <ImageView
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_centerVertical="true"
+                                android:layout_marginLeft="16dp"
+                                android:layout_marginStart="16dp"
+                                android:src="@drawable/ic_timeline_black_24dp"
+                                android:tint="?colorAccent"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="10dp"
+                                android:layout_marginLeft="72dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginStart="72dp"
+                                android:text="@string/statistics"
+                                android:textColor="@color/text_primary"
+                                android:textSize="16sp"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
 
     <include layout="@layout/include_nav_drawer"/>
 
