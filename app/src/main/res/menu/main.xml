@@ -4,12 +4,4 @@
         android:id="@+id/action_ticket"
         android:title="View ticket"/>
 
-    <item
-        android:id="@+id/action_settings"
-        android:title="Settings"/>
-
-    <item
-        android:id="@+id/action_about"
-        android:title="About"/>
-
 </menu>
