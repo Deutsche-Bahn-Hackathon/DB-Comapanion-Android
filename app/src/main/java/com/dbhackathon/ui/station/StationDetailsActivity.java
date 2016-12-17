@@ -49,17 +49,6 @@ public class StationDetailsActivity extends BaseActivity {
 
         TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
-        if (station != null) {
-            parseStationData(station);
-        } else {
-            new AlertDialog.Builder(this, R.style.DialogStyle)
-                    .setTitle("No station nearby")
-                    .setMessage("Make sure you are within a station and bluetooth is enabled.")
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
-                    .create()
-                    .show();
-        }
-
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, android.R.color.white));
 
@@ -69,6 +58,17 @@ public class StationDetailsActivity extends BaseActivity {
 
         if (mArrivalFragment == null) {
             mArrivalFragment = new StationDetailsFragment();
+        }
+
+        if (station != null) {
+            parseStationData(station);
+        } else {
+            new AlertDialog.Builder(this, R.style.DialogStyle)
+                    .setTitle("No station nearby")
+                    .setMessage("Make sure you are within a station and bluetooth is enabled.")
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+                    .create()
+                    .show();
         }
 
         adapter.addFragment(mDepartureFragment, "Departures");

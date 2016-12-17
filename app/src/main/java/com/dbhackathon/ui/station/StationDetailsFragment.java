@@ -52,10 +52,6 @@ public class StationDetailsFragment extends RxFragment {
             return view;
         }
 
-        if (mTrains == null) {
-            throw new IllegalArgumentException("Trains cannot be null!");
-        }
-
         id = bundle.getString(Config.EXTRA_STATION_ID);
         departureArrivals = bundle.getString(Config.EXTRA_DEPARTURES_ARRIVALS);
 
