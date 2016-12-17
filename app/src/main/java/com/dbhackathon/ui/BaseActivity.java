@@ -21,6 +21,8 @@ import android.view.View;
 
 import com.dbhackathon.R;
 import com.dbhackathon.ui.main.MainActivity;
+import com.dbhackathon.ui.station.StationDetailsActivity;
+import com.dbhackathon.ui.ticket.TicketActivity;
 import com.dbhackathon.ui.train.TrainActivity;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.android.ActivityEvent;
@@ -61,7 +63,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
      */
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
 
-    protected static final int NAVDRAWER_ITEM_STATIONS = R.id.nav_stations;
+    protected static final int NAVDRAWER_ITEM_STATION_CURRENT = R.id.nav_station_current;
+    protected static final int NAVDRAWER_ITEM_STATION_LIST = R.id.nav_station_list;
     protected static final int NAVDRAWER_ITEM_TRAIN = R.id.nav_train;
 
     /**
@@ -135,12 +138,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                //startActivity(new Intent(this, SettingsActivity.class));
-                finish();
-                return true;
-            case R.id.action_about:
-                //startActivity(new Intent(this, AboutActivity.class));
+            case R.id.action_ticket:
+                startActivity(new Intent(this, TicketActivity.class));
                 return true;
         }
 
@@ -255,7 +254,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
      */
     private void goToNavDrawerItem(int item) {
         switch (item) {
-            case NAVDRAWER_ITEM_STATIONS:
+            case NAVDRAWER_ITEM_STATION_CURRENT:
+                createBackStack(new Intent(this, StationDetailsActivity.class));
+                break;
+            case NAVDRAWER_ITEM_STATION_LIST:
                 createBackStack(new Intent(this, MainActivity.class));
                 break;
             case NAVDRAWER_ITEM_TRAIN:

@@ -31,7 +31,7 @@ class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_alarm,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_station,
                 parent, false);
         return new ViewHolder(view);
     }
@@ -49,8 +49,8 @@ class AlarmAdapter extends RecyclerView.Adapter<AlarmAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.list_item_alarm_layout) FrameLayout layout;
-        @BindView(R.id.list_item_alarm_name) TextView name;
+        @BindView(R.id.list_item_station_layout) FrameLayout layout;
+        @BindView(R.id.list_item_station_name) TextView name;
 
         ViewHolder(View itemView) {
             super(itemView);

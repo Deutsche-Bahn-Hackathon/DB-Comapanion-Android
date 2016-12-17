@@ -48,7 +48,11 @@ public class StationDetailsFragment extends RxFragment {
 
         Bundle bundle = getArguments();
 
-        if (bundle == null && mTrains == null) {
+        if (bundle == null) {
+            return view;
+        }
+
+        if (mTrains == null) {
             throw new IllegalArgumentException("Trains cannot be null!");
         }
 

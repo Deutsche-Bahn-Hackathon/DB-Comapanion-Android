@@ -6,9 +6,8 @@ import com.dbhackathon.data.model.Station;
 
 public class TrainBeacon extends AbsBeacon implements JsonSerializable {
 
-    TrainBeacon(int id) {
-        super(id);
-
+    TrainBeacon(int major, int minor) {
+        super(major, minor);
         seen();
     }
 

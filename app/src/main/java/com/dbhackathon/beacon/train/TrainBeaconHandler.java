@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.annotation.Nullable;
 
 import com.dbhackathon.beacon.AbsBeaconHandler;
 import com.dbhackathon.beacon.BeaconStorage;
@@ -13,10 +12,8 @@ import com.dbhackathon.beacon.notification.TripNotification;
 
 import org.altbeacon.beacon.Beacon;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -27,7 +24,7 @@ import timber.log.Timber;
 
 public final class TrainBeaconHandler extends AbsBeaconHandler {
 
-    public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab8";
+    public static final String UUID = "1f771fca-e25a-3a7f-af4e-1745a7be89af";
     public static final String IDENTIFIER = "BUS";
 
     private static final int TIMEOUT;
@@ -39,16 +36,12 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
     private static final int TIMER_INTERVAL = (int) TimeUnit.SECONDS.toMillis(150);
     private static final int BUS_LAST_SEEN_THRESHOLD = (int) TimeUnit.SECONDS.toMillis(180);
 
-    private static final int MAX_BEACON_DISTANCE = 5;
-
     private final BeaconStorage mBeaconStorage;
 
     @SuppressLint("StaticFieldLeak")
     private static TrainBeaconHandler INSTANCE;
 
     private final Map<Integer, TrainBeacon> mBeaconMap = new ConcurrentHashMap<>();
-
-    private byte mCycleCounter;
 
 
     private TrainBeaconHandler(Context context) {
@@ -102,7 +95,7 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
     public void didRangeBeacons(Collection<Beacon> beacons) {
         for (Beacon beacon : beacons) {
             int major = beacon.getId2().toInt();
-            int minor = beacon.getId2().toInt();
+            int minor = beacon.getId3().toInt();
 
             validateBeacon(beacon, major, minor);
         }
@@ -126,7 +119,7 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
             Timber.w("Vehicle %d, seen: %d, distance: %f",
                     major, trainBeacon.seenSeconds, trainBeacon.distance);
         } else {
-            trainBeacon = new TrainBeacon(major);
+            trainBeacon = new TrainBeacon(major, minor);
             mBeaconMap.put(major, trainBeacon);
 
             Timber.e("Added vehicle %d", major);
@@ -158,11 +151,11 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
 
                 Timber.e("Removed beacon %d", entry.getKey());
 
-                if (currentTrip != null && currentTrip.getId() == entry.getValue().id) {
+                if (currentTrip != null && currentTrip.getId() == entry.getValue().major) {
                     mBeaconStorage.saveCurrentTrip(null);
                 }
             } else if (beacon.lastSeen + TIMEOUT < System.currentTimeMillis()) {
-                if (currentTrip != null && currentTrip.getId() == beacon.id) {
+                if (currentTrip != null && currentTrip.getId() == beacon.major) {
                     hideCurrentTrip(currentTrip);
                 }
             }
@@ -173,8 +166,6 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
     // ========================================= TRIP ==============================================
 
     private void updateCurrentTrip() {
-        mCycleCounter++;
-
         TrainBeacon beacon = null;
 
         for (Map.Entry<Integer, TrainBeacon> entry : mBeaconMap.entrySet()) {
@@ -192,7 +183,7 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
 
         CurrentTrip currentTrip = mBeaconStorage.getCurrentTrip();
 
-        if (currentTrip != null && currentTrip.beacon.id == beacon.id) {
+        if (currentTrip != null && currentTrip.beacon.major == beacon.major) {
             if (beacon.lastSeen + TIMEOUT >= System.currentTimeMillis()) {
                 Timber.i("Seen: %s", beacon.lastSeen + TIMEOUT - System.currentTimeMillis());
 
@@ -202,10 +193,8 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
 
                 mBeaconStorage.saveCurrentTrip(currentTrip);
             }
-        } else if (mCycleCounter % 3 == 0 && beacon.distance <= MAX_BEACON_DISTANCE) {
+        } else {
             mBeaconStorage.saveCurrentTrip(new CurrentTrip(mContext, beacon));
-
-            mCycleCounter = 0;
         }
     }
 
@@ -219,19 +208,5 @@ public final class TrainBeaconHandler extends AbsBeaconHandler {
         } else {
             Timber.i("Current trip has no notification.");
         }
-    }
-
-
-    @Nullable
-    private TrainBeacon getNearestBeacon() {
-        List<TrainBeacon> list = new ArrayList<>(mBeaconMap.values());
-
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        Collections.sort(list, (o1, o2) -> (int) (o1.distance - o2.distance));
-
-        return list.get(0);
     }
 }

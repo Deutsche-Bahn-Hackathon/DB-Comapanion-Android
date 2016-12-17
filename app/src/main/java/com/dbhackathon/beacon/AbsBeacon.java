@@ -4,7 +4,9 @@ import java.util.Date;
 
 public abstract class AbsBeacon {
 
-    public final int id;
+    public final int major;
+    public final int minor;
+
     private final Date startDate;
 
     public long seenSeconds;
@@ -12,8 +14,10 @@ public abstract class AbsBeacon {
 
     public double distance;
 
-    protected AbsBeacon(int id) {
-        this.id = id;
+    protected AbsBeacon(int major, int minor) {
+        this.major = major;
+        this.minor = minor;
+
         startDate = new Date();
 
         seen();

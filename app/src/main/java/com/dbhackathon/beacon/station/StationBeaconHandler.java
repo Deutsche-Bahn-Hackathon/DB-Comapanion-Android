@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.dbhackathon.beacon.AbsBeaconHandler;
+import com.dbhackathon.beacon.notification.DeparturesNotification;
 
 import org.altbeacon.beacon.Beacon;
 
@@ -21,15 +22,15 @@ import timber.log.Timber;
 
 public final class StationBeaconHandler extends AbsBeaconHandler {
 
-    public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab9";
+    public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab8";
     public static final String IDENTIFIER = "STATION";
 
     private final Map<Integer, StationBeacon> mBeaconMap = new ConcurrentHashMap<>();
 
     private static final int BEACON_REMOVAL_TIME = 10000;
-    private static final int BEACON_NOTIFICATION_DISTANCE = 4;
-
     private static final int TIMER_INTERVAL = 5000;
+
+    private StationBeacon mCurrentStation;
 
     @SuppressLint("StaticFieldLeak")
     private static StationBeaconHandler INSTANCE;
@@ -91,22 +92,17 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
                     StationBeacon beacon = entry.getValue();
 
                     if (beacon.lastSeen < System.currentTimeMillis() - BEACON_REMOVAL_TIME) {
-                        /*if (mCurrentBusStop != null && mCurrentBusStop.id == beacon.id) {
-                            Timber.w("Removed current bus stop %d", mCurrentBusStop.id);
-
-                            BusBeaconHandler.getInstance(mContext)
-                                    .currentBusStopOutOfRange(mCurrentBusStop);
+                        if (mCurrentStation != null && mCurrentStation.major == beacon.major) {
+                            Timber.w("Removed current bus stop %d", mCurrentStation.major);
 
                             DeparturesNotification.hide(mContext);
 
-                            mCurrentBusStop = null;
+                            mCurrentStation = null;
+                        }
 
-                            BeaconStorage.getInstance(mContext).saveCurrentBusStop(null);
-                        }*/
+                        Timber.e("Removed beacon %d", beacon.major);
 
-                        Timber.e("Removed beacon %d", beacon.id);
-
-                        mBeaconMap.remove(beacon.id);
+                        mBeaconMap.remove(beacon.major);
                     }
                 }
             }
@@ -138,11 +134,10 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
         Collections.sort(list, (lhs, rhs) -> (int) (lhs.distance - rhs.distance));
 
         if (!beacons.isEmpty()) {
-            StationBeacon beacon = list.get(0);
-            //setCurrentBusStop(beacon.id);
+            mCurrentStation = list.get(0);
         }
 
-        //showNotificationIfNeeded();
+        showNotificationIfNeeded();
     }
 
     @Override
@@ -153,16 +148,23 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
             beaconInfo.seen();
             beaconInfo.distance = beacon.getDistance();
 
-            if (beaconInfo.distance > BEACON_NOTIFICATION_DISTANCE) {
-                //Notifications.cancel(mContext, major);
-            }
-
             Timber.i("Bus stop %d, seen: %d, distance: %f", major,
                     beaconInfo.seenSeconds, beaconInfo.distance);
         } else {
-            mBeaconMap.put(major, new StationBeacon(major));
+            mBeaconMap.put(major, new StationBeacon(major, minor));
 
             Timber.w("Added bus stop %d", major);
         }
+    }
+
+
+    private void showNotificationIfNeeded() {
+        if (mCurrentStation != null) {
+            DeparturesNotification.show(mContext, mCurrentStation);
+        }
+    }
+
+    public StationBeacon getCurrentStation() {
+        return mCurrentStation;
     }
 }

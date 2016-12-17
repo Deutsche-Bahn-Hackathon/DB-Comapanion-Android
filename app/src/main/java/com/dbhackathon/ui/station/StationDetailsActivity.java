@@ -6,19 +6,21 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.app.AlertDialog;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
+import com.dbhackathon.beacon.station.StationBeacon;
+import com.dbhackathon.beacon.station.StationBeaconHandler;
 import com.dbhackathon.data.model.Station;
+import com.dbhackathon.ui.BaseActivity;
 import com.dbhackathon.ui.widget.TabsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class StationDetailsActivity extends AppCompatActivity {
+public class StationDetailsActivity extends BaseActivity {
 
     private StationDetailsFragment mDepartureFragment;
     private StationDetailsFragment mArrivalFragment;
@@ -35,21 +37,28 @@ public class StationDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        if (!intent.hasExtra(Config.EXTRA_STATION)) {
-            Timber.e("Missing intent extra %s", Config.EXTRA_STATION);
-            finish();
-            return;
+        Station station = intent.getParcelableExtra(Config.EXTRA_STATION);
+
+        if (station == null) {
+            StationBeacon beacon = StationBeaconHandler.getInstance(this).getCurrentStation();
+            if (beacon != null) {
+                Timber.e("Got station from beacon");
+                station = beacon.station();
+            }
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(v -> finish());
-
-        Station station = intent.getParcelableExtra(Config.EXTRA_STATION);
         TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager());
 
-        mCollapsing.setTitle(station.name());
+        if (station != null) {
+            parseStationData(station);
+        } else {
+            new AlertDialog.Builder(this, R.style.DialogStyle)
+                    .setTitle("No station nearby")
+                    .setMessage("Make sure you are within a station and bluetooth is enabled.")
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+                    .create()
+                    .show();
+        }
 
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, android.R.color.white));
@@ -62,6 +71,21 @@ public class StationDetailsActivity extends AppCompatActivity {
             mArrivalFragment = new StationDetailsFragment();
         }
 
+        adapter.addFragment(mDepartureFragment, "Departures");
+        adapter.addFragment(mArrivalFragment, "Arrivals");
+
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
+
+    @Override
+    protected int getNavItem() {
+        return NAVDRAWER_ITEM_STATION_CURRENT;
+    }
+
+    private void parseStationData(Station station) {
+        mCollapsing.setTitle(station.name());
+
         Bundle departures = new Bundle();
         Bundle arrivals = new Bundle();
 
@@ -73,11 +97,5 @@ public class StationDetailsActivity extends AppCompatActivity {
 
         mDepartureFragment.setArguments(departures);
         mArrivalFragment.setArguments(arrivals);
-
-        adapter.addFragment(mDepartureFragment, "Departures");
-        adapter.addFragment(mArrivalFragment, "Arrivals");
-
-        mViewPager.setAdapter(adapter);
-        mTabLayout.setupWithViewPager(mViewPager);
     }
 }

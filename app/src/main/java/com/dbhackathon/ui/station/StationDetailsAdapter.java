@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
-import com.dbhackathon.util.Utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,8 +27,6 @@ class StationDetailsAdapter extends RecyclerView.Adapter<StationDetailsAdapter.T
 
     private Context mContext;
     private List<Train> mItems;
-
-    private Utils.ActionListener<Train> mActionListener;
 
     StationDetailsAdapter(Context context, List<Train> items) {
         mContext = context;
@@ -73,12 +70,8 @@ class StationDetailsAdapter extends RecyclerView.Adapter<StationDetailsAdapter.T
         return mItems.size();
     }
 
-    void setActionListener(Utils.ActionListener<Train> actionListener) {
-        mActionListener = actionListener;
-    }
 
-
-    class TrainViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class TrainViewHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.list_item_departures_icon) ImageView icon;
 
@@ -92,15 +85,6 @@ class StationDetailsAdapter extends RecyclerView.Adapter<StationDetailsAdapter.T
             super(itemView);
 
             ButterKnife.bind(this, itemView);
-
-            itemView.setOnClickListener(this);
-        }
-
-        @Override
-        public void onClick(View view) {
-            if (mActionListener != null) {
-                mActionListener.onClick(mItems.get(getAdapterPosition()));
-            }
         }
     }
 }

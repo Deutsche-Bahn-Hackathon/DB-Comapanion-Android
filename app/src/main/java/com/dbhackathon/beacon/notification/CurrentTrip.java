@@ -94,7 +94,7 @@ public class CurrentTrip implements JsonSerializable {
 
 
     public int getId() {
-        return beacon.id;
+        return beacon.major;
     }
 
     int getDelay() {
@@ -113,6 +113,11 @@ public class CurrentTrip implements JsonSerializable {
 
     public void setContext(Context context) {
         mContext = context;
+    }
+
+    public String getWagon() {
+        String minor = String.valueOf(beacon.minor);
+        return minor.substring(0, 2);
     }
 
 

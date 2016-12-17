@@ -49,7 +49,7 @@ class StationAdapter extends RecyclerView.Adapter<StationAdapter.StationViewHold
 
     class StationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.item_station_name) TextView name;
+        @BindView(R.id.list_item_station_name) TextView name;
 
         StationViewHolder(View itemView) {
             super(itemView);

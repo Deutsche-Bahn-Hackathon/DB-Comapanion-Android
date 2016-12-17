@@ -73,6 +73,12 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.Search" />
 
+        <activity
+            android:name=".ui.ticket.TicketActivity"
+            android:label="@string/title_ticket"
+            android:launchMode="singleTop"
+            android:theme="@style/AppTheme" />
+
 
         <!-- Services -->
 

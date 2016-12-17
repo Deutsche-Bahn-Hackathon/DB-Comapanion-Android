@@ -50,12 +50,24 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
 
         mAdapter.setActionListener(this);
 
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.addItemDecoration(new RecyclerItemDivider(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         loadStations();
+    }
+
+    @Override
+    protected int getNavItem() {
+        return NAVDRAWER_ITEM_STATION_LIST;
+    }
+
+    @Override
+    public void onClick(Station station) {
+        Intent intent = new Intent(this, StationDetailsActivity.class);
+        intent.putExtra(Config.EXTRA_STATION, station);
+        startActivity(intent);
     }
 
     private void loadStations() {
@@ -83,17 +95,5 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
                         mRefresh.setRefreshing(false);
                     }
                 });
-    }
-
-    @Override
-    protected int getNavItem() {
-        return NAVDRAWER_ITEM_STATIONS;
-    }
-
-    @Override
-    public void onClick(Station station) {
-        Intent intent = new Intent(this, StationDetailsActivity.class);
-        intent.putExtra(Config.EXTRA_STATION, station);
-        startActivity(intent);
     }
 }

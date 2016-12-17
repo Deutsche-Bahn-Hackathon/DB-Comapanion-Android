@@ -6,6 +6,7 @@
     <string name="title_coffee">Order coffee</string>
     <string name="title_toilets">Toilets</string>
     <string name="title_alarms">Alarms</string>
+    <string name="title_ticket">Ticket</string>
 
     <string name="sorry">Sorry</string>
 
@@ -33,5 +34,8 @@
     <string name="line_details_current_stop">Now at %s</string>
     <string name="could_not_recognize_qr">Could not recognize QR-code</string>
     <string name="retry">Retry</string>
+
+    <string name="notification_bus_stop_sub_pull">Pull to view next departures</string>
+    <string name="notification_expanded_title">Next departures from %1$s</string>
 
 </resources>

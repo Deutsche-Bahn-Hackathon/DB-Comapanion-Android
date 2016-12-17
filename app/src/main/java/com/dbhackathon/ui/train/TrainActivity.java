@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
+import com.dbhackathon.beacon.BeaconStorage;
+import com.dbhackathon.beacon.notification.CurrentTrip;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.BaseActivity;
 import com.dbhackathon.ui.alarm.AlarmActivity;
@@ -28,7 +31,6 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import timber.log.Timber;
 
 public class TrainActivity extends BaseActivity implements View.OnClickListener,
         View.OnTouchListener {
@@ -46,6 +48,9 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
 
     @BindView(R.id.train_action_alarm_delete) ImageView mDeleteAlarm;
 
+    @BindView(R.id.train_card_header) CardView mHeader;
+    @BindView(R.id.train_card_content) CardView mContent;
+
     private Train mTrain;
 
     /**
@@ -53,7 +58,6 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
      */
     private float lastTouchX;
     private float lastTouchY;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,17 +68,18 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
 
         Intent intent = getIntent();
 
-        if (!intent.hasExtra(Config.EXTRA_TRAIN)) {
-            Timber.e("Missing intent extra %s", Config.EXTRA_TRAIN);
-            finish();
-            return;
+        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
+
+        if (mTrain == null) {
+            CurrentTrip currentTrip = BeaconStorage.getInstance(this).getCurrentTrip();
+            if (currentTrip != null) {
+                mTrain = currentTrip.toTrain();
+            }
         }
 
         if (!Settings.hasAlarms(this)) {
             mDeleteAlarm.setVisibility(View.GONE);
         }
-
-        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
 
         mActionAlarm.setOnClickListener(this);
         mActionBars.setOnClickListener(this);
@@ -88,9 +93,21 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
         mActionToilets.setOnTouchListener(this);
         mActionAlarm.setOnTouchListener(this);
 
-        mTitleText.setText(getString(R.string.welcome_to_train, mTrain.name()));
-        mDepartureText.setText(getString(R.string.train_from, "Munich Hbf"));
-        mArrivalText.setText(getString(R.string.train_to, mTrain.stop()));
+        if (mTrain == null) {
+            new AlertDialog.Builder(this, R.style.DialogStyle)
+                    .setTitle("No train nearby")
+                    .setMessage("Make sure you are in a train and bluetooth is enabled.")
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+                    .create()
+                    .show();
+
+            mHeader.setVisibility(View.GONE);
+            mContent.setVisibility(View.GONE);
+        } else {
+            mTitleText.setText(getString(R.string.welcome_to_train, mTrain.name()));
+            mDepartureText.setText(getString(R.string.train_from, "Munich Hbf"));
+            mArrivalText.setText(getString(R.string.train_to, mTrain.stop()));
+        }
     }
 
     @Override

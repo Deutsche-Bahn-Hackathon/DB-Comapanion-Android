@@ -5,9 +5,14 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/nav_stations"
+            android:id="@+id/nav_station_current"
             android:icon="@drawable/ic_store_white_24dp"
-            android:title="Stations"/>
+            android:title="Current station"/>
+
+        <item
+            android:id="@+id/nav_station_list"
+            android:icon="@drawable/ic_store_white_24dp"
+            android:title="Station list"/>
 
         <item
             android:id="@+id/nav_train"

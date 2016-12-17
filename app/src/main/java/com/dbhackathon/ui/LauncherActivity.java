@@ -8,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import com.dbhackathon.Config;
 import com.dbhackathon.beacon.BeaconStorage;
 import com.dbhackathon.beacon.notification.CurrentTrip;
+import com.dbhackathon.beacon.station.StationBeacon;
+import com.dbhackathon.beacon.station.StationBeaconHandler;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.main.MainActivity;
+import com.dbhackathon.ui.station.StationDetailsActivity;
 import com.dbhackathon.ui.train.TrainActivity;
 
 public class LauncherActivity extends AppCompatActivity {
@@ -24,6 +27,17 @@ public class LauncherActivity extends AppCompatActivity {
 
             Intent intent = new Intent(this, TrainActivity.class);
             intent.putExtra(Config.EXTRA_TRAIN, train);
+
+            startActivity(intent);
+            finish();
+
+            return;
+        }
+
+        StationBeacon beacon = StationBeaconHandler.getInstance(this).getCurrentStation();
+        if (beacon != null) {
+            Intent intent = new Intent(this, StationDetailsActivity.class);
+            intent.putExtra(Config.EXTRA_STATION, beacon.station());
 
             startActivity(intent);
             finish();

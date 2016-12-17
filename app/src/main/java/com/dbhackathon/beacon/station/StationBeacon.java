@@ -1,6 +1,7 @@
 package com.dbhackathon.beacon.station;
 
 import com.dbhackathon.beacon.AbsBeacon;
+import com.dbhackathon.data.model.Station;
 
 /**
  * Model which represents a bus stop beacon and holds information about it.
@@ -9,16 +10,15 @@ import com.dbhackathon.beacon.AbsBeacon;
  */
 public class StationBeacon extends AbsBeacon {
 
-    boolean isNotificationShown;
+    private Station station;
 
-    StationBeacon(int id) {
-        super(id);
+    StationBeacon(int major, int minor) {
+        super(major, minor);
+
+        station = Station.create("008011160", "Berlin Bhf", "52.525589", "13.369548");
     }
 
-    /**
-     * Sets {@link #isNotificationShown} to {@code true}.
-     */
-    public void setNotificationShown() {
-        isNotificationShown = true;
+    public Station station() {
+        return station;
     }
 }
