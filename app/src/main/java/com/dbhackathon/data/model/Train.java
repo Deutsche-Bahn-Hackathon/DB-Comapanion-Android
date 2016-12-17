@@ -1,6 +1,7 @@
 package com.dbhackathon.data.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import com.google.auto.value.AutoValue;
 import com.google.gson.Gson;
@@ -16,6 +17,7 @@ public abstract class Train implements Parcelable {
 
     public abstract String name();
 
+    @Nullable
     public abstract String type();
 
     public abstract String stop_id();

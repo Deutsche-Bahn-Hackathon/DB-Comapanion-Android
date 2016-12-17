@@ -16,21 +16,17 @@ import com.google.gson.annotations.SerializedName;
 @AutoValue
 public abstract class Station implements Parcelable {
 
-    public abstract int id();
-
-    public abstract String state();
+    public abstract String id();
 
     public abstract String name();
 
-    public abstract String street();
+    public abstract String lat();
 
-    @SerializedName("postal_code")
-    public abstract int postalCode();
+    @SerializedName("lon")
+    public abstract String lng();
 
-    public abstract String city();
-
-    public static Station create(int id, String state, String name, String street, int postalCode, String city) {
-        return new AutoValue_Station(id, state, name, street, postalCode, city);
+    public static Station create(String id, String name, String lat, String lng) {
+        return new AutoValue_Station(id, name, lat, lng);
     }
 
     public static TypeAdapter<Station> typeAdapter(Gson gson) {

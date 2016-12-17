@@ -31,7 +31,7 @@
             tools:ignore="HardcodedText"/>
 
         <TextView
-            android:id="@+id/item_station_city"
+            android:id="@+id/item_station_lat_lng"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"

@@ -72,19 +72,19 @@ public class CurrentTrip implements JsonSerializable {
         times.add(new VdvStation(8011113, 69960));
         times.add(new VdvStation(8011160, 70380));
 
-        path.add(Station.create(8000261, "", "München Hbf", "", 0, ""));
-        path.add(Station.create(8000183, "", "Ingolstadt Hbf", "", 0, ""));
-        path.add(Station.create(8096025, "", "Nürnberg", "", 0, ""));
-        path.add(Station.create(8001844, "", "Erlangen", "", 0, ""));
-        path.add(Station.create(8000025, "", "Bamberg", "", 0, ""));
-        path.add(Station.create(8000228, "", "Lichtenfels", "", 0, ""));
-        path.add(Station.create(8011956, "", "Jena Paradies", "", 0, ""));
-        path.add(Station.create(8010240, "", "Naumburg (Saale) Hbf", "", 0, ""));
-        path.add(Station.create(8010205, "", "Leipzig Hbf", "", 0, ""));
-        path.add(Station.create(8010050, "", "Bitterfeld", "", 0, ""));
-        path.add(Station.create(8010222, "", "Lutherstadt Wittenberg Hbf", "", 0, ""));
-        path.add(Station.create(8011113, "", "Berlin Südkreuz", "", 0, ""));
-        path.add(Station.create(8011160, "", "Berlin Hbf", "", 0, ""));
+        path.add(Station.create("8000261", "München Hbf", "", ""));
+        path.add(Station.create("8000183", "Ingolstadt Hbf", "", ""));
+        path.add(Station.create("8096025", "Nürnberg", "", ""));
+        path.add(Station.create("8001844", "Erlangen", "", ""));
+        path.add(Station.create("8000025", "Bamberg", "", ""));
+        path.add(Station.create("8000228", "Lichtenfels", "", ""));
+        path.add(Station.create("8011956", "Jena Paradies", "", ""));
+        path.add(Station.create("8010240", "Naumburg (Saale) Hbf", "", ""));
+        path.add(Station.create("8010205", "Leipzig Hbf", "", ""));
+        path.add(Station.create("8010050", "Bitterfeld", "", ""));
+        path.add(Station.create("8010222", "Lutherstadt Wittenberg Hbf", "", ""));
+        path.add(Station.create("8011113", "Berlin Südkreuz", "", ""));
+        path.add(Station.create("8011160", "Berlin Hbf", "", ""));
     }
 
     public void reset() {
