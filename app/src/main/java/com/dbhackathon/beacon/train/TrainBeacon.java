@@ -1,24 +1,25 @@
 package com.dbhackathon.beacon.train;
 
 import com.dbhackathon.beacon.AbsBeacon;
+import com.dbhackathon.data.model.JsonSerializable;
+import com.dbhackathon.data.model.Station;
 
-/**
- * Model which represents a bus stop beacon and holds information about it.
- *
- * @author Alex Lardschneider
- */
-public class TrainBeacon extends AbsBeacon {
-
-    boolean isNotificationShown;
+public class TrainBeacon extends AbsBeacon implements JsonSerializable {
 
     TrainBeacon(int id) {
         super(id);
+
+        seen();
     }
 
-    /**
-     * Sets {@link #isNotificationShown} to {@code true}.
-     */
-    public void setNotificationShown() {
-        isNotificationShown = true;
+
+    // ======================================== LISTS ==============================================
+
+    public String getLine() {
+        return "ICE";
+    }
+
+    public Station getStation() {
+        return Station.create(8000228, "", "Lichtenfels", "", 0, "");
     }
 }
