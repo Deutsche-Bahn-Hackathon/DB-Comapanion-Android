@@ -15,9 +15,6 @@ import com.dbhackathon.util.Utils;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.Date;
 import java.util.Map;
 
@@ -78,21 +75,11 @@ public class NotificationCommand implements FcmCommand {
         Timber.w("Received GCM notification message");
         Timber.w("Parsing GCM notification command: %s", data);
 
-        JSONObject json = new JSONObject();
-
-        for (Map.Entry<String, String> entry : data.entrySet()) {
-            try {
-                json.put(entry.getKey(), entry.getValue());
-            } catch (JSONException e) {
-                Utils.logException(e);
-            }
-        }
-
         Gson gson = new Gson();
         NotificationCommandModel command;
 
         try {
-            command = gson.fromJson(json.toString(), NotificationCommandModel.class);
+            command = gson.fromJson(data.get("content"), NotificationCommandModel.class);
 
             Timber.w("Id: %d", command.id);
             Timber.w("Audience: %s", command.audience);
