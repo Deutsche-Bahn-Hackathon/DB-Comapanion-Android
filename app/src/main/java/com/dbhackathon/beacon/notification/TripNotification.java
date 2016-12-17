@@ -111,7 +111,7 @@ public final class TripNotification {
                 .setContentIntent(pendingIntent);
 
         Intent resultIntent = new Intent(context, TrainActivity.class);
-        resultIntent.putExtra(Config.EXTRA_TRAIN, trip.getId());
+        resultIntent.putExtra(Config.EXTRA_TRAIN, trip.toTrain());
 
         PendingIntent resultPendingIntent = PendingIntent.getActivity(context,
                 NOTIFICATION_ID,
