@@ -20,7 +20,7 @@
     <string name="survey">Survey</string>
     <string name="statistics">Statistics</string>
     <string name="nav_home">Home</string>
-    <string name="track_num">Track %d</string>
+    <string name="track_num">Track %s</string>
     <string name="train">Train</string>
 
 </resources>

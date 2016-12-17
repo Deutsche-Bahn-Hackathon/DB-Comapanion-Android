@@ -11,6 +11,9 @@ import android.widget.Toast;
 
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
+import com.dbhackathon.data.model.TrainResponse;
+import com.dbhackathon.data.network.RestClient;
+import com.dbhackathon.data.network.TrainApi;
 import com.dbhackathon.util.Utils;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
@@ -18,13 +21,23 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import rx.Subscriber;
+import rx.Subscription;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import timber.log.Timber;
 
 public class DepartureArrivalFragment extends RxFragment implements Utils.ActionListener<Train> {
 
+    private String departures_arrivals;
+    private String id;
     private List<Train> mTrains;
 
     @BindView(R.id.recycler) RecyclerView mRecyclerView;
+
     private TrainAdapter mTrainAdapter;
+
+    private Subscription mTrainSubscription;
 
     @Nullable
     @Override
@@ -39,9 +52,10 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
             throw new IllegalArgumentException("Trains cannot be null!");
         }
 
-        mTrains = bundle != null ? bundle.getParcelableArrayList(StationActivity.BUNDLE_TRAINS) : mTrains;
+        id = bundle != null ? bundle.getString(StationActivity.BUNDLE_STATION_ID) : id;
+        departures_arrivals = bundle != null ? bundle.getString(StationActivity.BUNDLE_DEPARTURES_ARRIVALS) : departures_arrivals;
 
-        mTrainAdapter = new TrainAdapter(mTrains);
+        mTrainAdapter = new TrainAdapter();
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mTrainAdapter);
@@ -49,7 +63,39 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
 
         mTrainAdapter.setActionListener(this);
 
+        loadTrains();
+
         return view;
+    }
+
+    private void loadTrains() {
+        if (mTrainSubscription != null) {
+            mTrainSubscription.unsubscribe();
+        }
+
+        TrainApi trainApi = RestClient.ADAPTER.create(TrainApi.class);
+
+        mTrainSubscription = trainApi.getArrivals(id, departures_arrivals)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(bindToLifecycle())
+                .subscribe(new Subscriber<TrainResponse>() {
+                    @Override
+                    public void onCompleted() {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        Timber.e(e, "Could not load trains!");
+                    }
+
+                    @Override
+                    public void onNext(TrainResponse trainResponse) {
+                        mTrains = departures_arrivals.equals(StationActivity.BUNDLE_DEPARTURES) ? trainResponse.departures() : trainResponse.arrivals();
+                        mTrainAdapter.setItems(mTrains);
+                    }
+                });
     }
 
     @Override
