@@ -20,35 +20,24 @@
             tools:ignore="ContentDescription"/>
 
         <TextView
-            android:id="@+id/item_train_name"
+            android:id="@+id/item_station_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_weight="7"
-            android:text="Loading train name..."
+            android:layout_weight="2"
+            android:text="Berlin Hbf."
             android:textColor="@color/text_primary"
             android:textSize="16sp"
             tools:ignore="HardcodedText"/>
 
         <TextView
-            android:id="@+id/item_train_track"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_weight="3"
-            android:text="@string/track_num"
-            android:textColor="@color/text_primary"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/item_train_time"
+            android:id="@+id/item_station_city"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:layout_weight="1"
-            android:text="20'"
+            android:text="Berlin"
             android:textColor="@color/text_primary"
-            android:gravity="end"
             android:textSize="16sp"
             tools:ignore="HardcodedText"/>
 

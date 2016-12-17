@@ -3,6 +3,9 @@ package com.dbhackathon.data.network;
 import android.content.Context;
 
 import com.dbhackathon.util.Preconditions;
+import com.dbhackathon.util.iwillkillmyselfnow.AutoValueGsonAdapterFactory;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,6 +30,10 @@ public final class RestClient {
     public static void init(Context context) {
         Preconditions.checkNotNull(context, "context = null");
 
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapterFactory(new AutoValueGsonAdapterFactory())
+                .create();
+
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .addNetworkInterceptor(new NetworkInterceptor(context))
                 .connectTimeout(10, TimeUnit.SECONDS)
@@ -35,7 +42,7 @@ public final class RestClient {
 
         ADAPTER = new Retrofit.Builder()
                 .baseUrl(Endpoint.API_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(builder.build())
                 .build();

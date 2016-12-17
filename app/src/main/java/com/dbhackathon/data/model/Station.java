@@ -29,6 +29,10 @@ public abstract class Station implements Parcelable {
 
     public abstract String city();
 
+    public static Station create(int id, String state, String name, String street, int postalCode, String city) {
+        return new AutoValue_Station(id, state, name, street, postalCode, city);
+    }
+
     public static TypeAdapter<Station> typeAdapter(Gson gson) {
         return new AutoValue_Station.GsonTypeAdapter(gson);
     }

@@ -28,4 +28,8 @@ public final class Utils {
     public static void logException(Throwable t) {
         t.printStackTrace();
     }
+
+    public interface ActionListener<T> {
+        void onClick(T t);
+    }
 }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
+import com.dbhackathon.util.Utils;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
 
     private List<Train> mItems;
 
-    private ActionListener<Train> mActionListener;
+    private Utils.ActionListener<Train> mActionListener;
 
     public TrainAdapter(List<Train> items) {
         mItems = items;
@@ -44,7 +45,7 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
         holder.track.setText(String.format(holder.track.getText().toString(), position));
     }
 
-    public void setActionListener(ActionListener<Train> actionListener) {
+    public void setActionListener(Utils.ActionListener<Train> actionListener) {
         mActionListener = actionListener;
     }
 
@@ -73,9 +74,5 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
                 mActionListener.onClick(mItems.get(getAdapterPosition()));
             }
         }
-    }
-
-    interface ActionListener<T> {
-        void onClick(T t);
     }
 }
