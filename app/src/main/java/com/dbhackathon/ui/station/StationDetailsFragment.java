@@ -2,12 +2,12 @@ package com.dbhackathon.ui.station;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
@@ -15,30 +15,29 @@ import com.dbhackathon.data.model.Train;
 import com.dbhackathon.data.model.TrainResponse;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.network.TrainApi;
+import com.dbhackathon.ui.widget.RecyclerItemDivider;
+import com.dbhackathon.util.NextObserver;
 import com.dbhackathon.util.Utils;
 import com.trello.rxlifecycle.components.support.RxFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
-public class DepartureArrivalFragment extends RxFragment implements Utils.ActionListener<Train> {
+public class StationDetailsFragment extends RxFragment {
 
-    private String departures_arrivals;
+    private String departureArrivals;
     private String id;
-    private List<Train> mTrains;
 
     @BindView(R.id.recycler) RecyclerView mRecyclerView;
+    @BindView(R.id.refresh) SwipeRefreshLayout mRefresh;
 
-    private TrainAdapter mTrainAdapter;
-
-    private Subscription mTrainSubscription;
+    private List<Train> mTrains;
+    private StationDetailsAdapter mTrainAdapter;
 
     @Nullable
     @Override
@@ -53,16 +52,19 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
             throw new IllegalArgumentException("Trains cannot be null!");
         }
 
-        id = bundle != null ? bundle.getString(Config.EXTRA_STATION_ID) : id;
-        departures_arrivals = bundle != null ? bundle.getString(Config.EXTRA_DEPARTURES_ARRIVALS) : departures_arrivals;
+        id = bundle.getString(Config.EXTRA_STATION_ID);
+        departureArrivals = bundle.getString(Config.EXTRA_DEPARTURES_ARRIVALS);
 
-        mTrainAdapter = new TrainAdapter();
+        mRefresh.setColorSchemeResources(Config.REFRESH_COLORS);
+        mRefresh.setOnRefreshListener(this::loadTrains);
 
-        mRecyclerView.setHasFixedSize(true);
+        mTrains = new ArrayList<>();
+        mTrainAdapter = new StationDetailsAdapter(getActivity(), mTrains);
+
         mRecyclerView.setAdapter(mTrainAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addItemDecoration(new RecyclerItemDivider(getActivity()));
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        mTrainAdapter.setActionListener(this);
 
         loadTrains();
 
@@ -70,37 +72,32 @@ public class DepartureArrivalFragment extends RxFragment implements Utils.Action
     }
 
     private void loadTrains() {
-        if (mTrainSubscription != null) {
-            mTrainSubscription.unsubscribe();
-        }
+        mRefresh.setRefreshing(true);
 
         TrainApi trainApi = RestClient.ADAPTER.create(TrainApi.class);
-
-        mTrainSubscription = trainApi.getArrivals(id, departures_arrivals)
+        trainApi.getDepArrs(id, departureArrivals)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(bindToLifecycle())
-                .subscribe(new Subscriber<TrainResponse>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
+                .subscribe(new NextObserver<TrainResponse>() {
                     @Override
                     public void onError(Throwable e) {
-
-                        Timber.e(e, "Could not load trains!");
+                        Utils.logException(e);
+                        mRefresh.setRefreshing(false);
                     }
 
                     @Override
-                    public void onNext(TrainResponse trainResponse) {
-                        mTrains = departures_arrivals.equals(Config.EXTRA_DEPARTURES) ? trainResponse.departures() : trainResponse.arrivals();
-                        mTrainAdapter.setItems(mTrains);
+                    public void onNext(TrainResponse response) {
+                        if (departureArrivals.equals(Config.EXTRA_DEPARTURES)) {
+                            mTrains.addAll(response.departures());
+                        } else {
+                            mTrains.addAll(response.arrivals());
+                        }
+
+                        mTrainAdapter.notifyDataSetChanged();
+
+                        mRefresh.setRefreshing(false);
                     }
                 });
-    }
-
-    @Override
-    public void onClick(Train train) {
-        Toast.makeText(getActivity(), "Ich mag Züge!", Toast.LENGTH_SHORT).show();
     }
 }

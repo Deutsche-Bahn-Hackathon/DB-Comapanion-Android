@@ -6,7 +6,7 @@ public final class Endpoint {
 
     public static final String STATIONS = "stations";
 
-    public static final String DEPARTURES_ARRIVALS = "{id}/{departures_arrivals}";
+    public static final String DEPARTURES_ARRIVALS = "stations/{id}/{departures_arrivals}";
 
     public static final String FACILITY_TOILETS = "train/{train}/wagon/{wagon}/next/toilet";
     public static final String FACILITY_RESTAURANT = "train/{train}/wagon/{wagon}/next/restaurant";

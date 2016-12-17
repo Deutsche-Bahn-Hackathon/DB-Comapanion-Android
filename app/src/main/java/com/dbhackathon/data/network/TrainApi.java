@@ -13,6 +13,5 @@ public interface TrainApi {
     Observable<StationResponse> getStations();
 
     @GET(Endpoint.DEPARTURES_ARRIVALS)
-    Observable<TrainResponse> getArrivals(@Path("id") String id, @Path("departures_arrivals") String departures_arrivals);
-
+    Observable<TrainResponse> getDepArrs(@Path("id") String id, @Path("departures_arrivals") String departureArrivals);
 }

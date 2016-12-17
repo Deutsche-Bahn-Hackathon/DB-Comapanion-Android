@@ -2,31 +2,30 @@ package com.dbhackathon.ui.station;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Station;
-import com.dbhackathon.ui.BaseActivity;
 import com.dbhackathon.ui.widget.TabsAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import timber.log.Timber;
 
-public class StationActivity extends BaseActivity {
+public class StationDetailsActivity extends AppCompatActivity {
 
-    private DepartureArrivalFragment mDepartureFragment;
-    private DepartureArrivalFragment mArrivalFragment;
+    private StationDetailsFragment mDepartureFragment;
+    private StationDetailsFragment mArrivalFragment;
 
+    @BindView(R.id.collapsing_toolbar) CollapsingToolbarLayout mCollapsing;
     @BindView(R.id.viewpager) ViewPager mViewPager;
     @BindView(R.id.tabs) TabLayout mTabLayout;
-
-    private Station mStation;
-
-    private TabsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,42 +41,43 @@ public class StationActivity extends BaseActivity {
             return;
         }
 
-        mStation = intent.getParcelableExtra(Config.EXTRA_STATION);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(v -> finish());
 
-        mAdapter = new TabsAdapter(getSupportFragmentManager());
+        Station station = intent.getParcelableExtra(Config.EXTRA_STATION);
+        TabsAdapter adapter = new TabsAdapter(getSupportFragmentManager());
+
+        mCollapsing.setTitle(station.name());
 
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, android.R.color.white));
 
         if (mDepartureFragment == null) {
-            mDepartureFragment = new DepartureArrivalFragment();
+            mDepartureFragment = new StationDetailsFragment();
         }
 
         if (mArrivalFragment == null) {
-            mArrivalFragment = new DepartureArrivalFragment();
+            mArrivalFragment = new StationDetailsFragment();
         }
 
         Bundle departures = new Bundle();
         Bundle arrivals = new Bundle();
 
         departures.putString(Config.EXTRA_DEPARTURES_ARRIVALS, Config.EXTRA_DEPARTURES);
-        departures.putString(Config.EXTRA_STATION_ID, String.valueOf(mStation.id()));
+        departures.putString(Config.EXTRA_STATION_ID, String.valueOf(station.id()));
 
         arrivals.putString(Config.EXTRA_DEPARTURES_ARRIVALS, Config.EXTRA_ARRIVALS);
-        arrivals.putString(Config.EXTRA_STATION_ID, String.valueOf(mStation.id()));
+        arrivals.putString(Config.EXTRA_STATION_ID, String.valueOf(station.id()));
 
         mDepartureFragment.setArguments(departures);
         mArrivalFragment.setArguments(arrivals);
 
-        mAdapter.addFragment(mDepartureFragment, "Departures");
-        mAdapter.addFragment(mArrivalFragment, "Arrivals");
+        adapter.addFragment(mDepartureFragment, "Departures");
+        adapter.addFragment(mArrivalFragment, "Arrivals");
 
-        mViewPager.setAdapter(mAdapter);
+        mViewPager.setAdapter(adapter);
         mTabLayout.setupWithViewPager(mViewPager);
-    }
-
-    @Override
-    protected int getNavItem() {
-        return NAVDRAWER_ITEM_STATION;
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    android:id="@+id/list_item_departures_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/card_background"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:paddingBottom="8dp"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp">
+
+    <ImageView
+        android:id="@+id/list_item_departures_icon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_train_white_24dp"
+        android:tint="@color/default_icon_color_inverted"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="50dp"
+        android:layout_marginStart="50dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/list_item_departures_line"
+            android:layout_width="wrap_content"
+            android:fontFamily="sans-serif-condensed"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_primary"
+            android:textSize="22sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/list_item_departures_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="148dp"
+        android:layout_marginStart="148dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/list_item_departures_delay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_red_500"/>
+
+        <TextView
+            android:id="@+id/list_item_departures_destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:lines="1"
+            android:textColor="@color/text_secondary"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
+</FrameLayout>

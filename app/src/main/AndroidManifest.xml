@@ -44,7 +44,7 @@
             android:theme="@style/AppTheme.NavigationDrawer" />
 
         <activity
-            android:name="com.dbhackathon.ui.station.StationActivity"
+            android:name="com.dbhackathon.ui.station.StationDetailsActivity"
             android:label="@string/title_station"
             android:theme="@style/AppTheme.NavigationDrawer" />
 
