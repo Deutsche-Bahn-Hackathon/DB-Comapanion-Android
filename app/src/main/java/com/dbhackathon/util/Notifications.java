@@ -12,29 +12,31 @@ import com.dbhackathon.R;
 import com.dbhackathon.data.model.Coffee;
 import com.dbhackathon.ui.coffee.CoffeeActivity;
 
+import java.util.Arrays;
+
 public class Notifications {
 
-    public static void coffee(Context context, Coffee coffee) {
+    public static void coffee(Context context, Coffee[] coffees) {
         Preconditions.checkNotNull(context, "context == null");
-        Preconditions.checkNotNull(coffee, "coffee == null");
+        Preconditions.checkNotNull(coffees, "coffee == null");
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_local_cafe_white_24dp)
-                .setContentTitle("Do you want a coffee?")
+                .setContentTitle("Would you like a coffee?")
                 .setContentText("Click here to order one")
                 .setAutoCancel(true)
                 .setColor(ContextCompat.getColor(context, R.color.material_brown_500));
 
         Intent resultIntent = new Intent(context, CoffeeActivity.class);
-        resultIntent.putExtra(Config.EXTRA_COFFEE, coffee);
+        resultIntent.putExtra(Config.EXTRA_COFFEE, coffees);
 
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, coffee.id.hashCode(), resultIntent,
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, Arrays.hashCode(coffees), resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         mBuilder.setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.notify(coffee.id.hashCode(), mBuilder.build());
+        notificationManager.notify(Arrays.hashCode(coffees), mBuilder.build());
     }
 }
