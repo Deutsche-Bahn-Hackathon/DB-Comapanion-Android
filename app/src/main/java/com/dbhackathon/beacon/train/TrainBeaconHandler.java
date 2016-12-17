@@ -1,4 +1,4 @@
-package com.dbhackathon.beacon.station;
+package com.dbhackathon.beacon.train;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -19,12 +19,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import timber.log.Timber;
 
-public final class StationBeaconHandler extends AbsBeaconHandler {
+public final class TrainBeaconHandler extends AbsBeaconHandler {
 
     public static final String UUID = "e923b236-f2b7-4a83-bb74-cfb7fa44cab8";
-    public static final String IDENTIFIER = "STATION";
+    public static final String IDENTIFIER = "TRAIN";
 
-    private final Map<Integer, StationBeacon> mBeaconMap = new ConcurrentHashMap<>();
+    private final Map<Integer, TrainBeacon> mBeaconMap = new ConcurrentHashMap<>();
 
     private static final int BEACON_REMOVAL_TIME = 10000;
     private static final int BEACON_NOTIFICATION_DISTANCE = 4;
@@ -32,7 +32,7 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
     private static final int TIMER_INTERVAL = 5000;
 
     @SuppressLint("StaticFieldLeak")
-    private static StationBeaconHandler INSTANCE;
+    private static TrainBeaconHandler INSTANCE;
 
     private Timer TIMER;
 
@@ -52,15 +52,15 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
     };
 
 
-    private StationBeaconHandler(Context context) {
+    private TrainBeaconHandler(Context context) {
         super(context);
     }
 
-    public static StationBeaconHandler getInstance(Context context) {
+    public static TrainBeaconHandler getInstance(Context context) {
         if (INSTANCE == null) {
-            synchronized (StationBeaconHandler.class) {
+            synchronized (TrainBeaconHandler.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new StationBeaconHandler(context);
+                    INSTANCE = new TrainBeaconHandler(context);
                 }
             }
         }
@@ -87,8 +87,8 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
             public void run() {
                 Timber.i("Running timer");
 
-                for (Map.Entry<Integer, StationBeacon> entry : mBeaconMap.entrySet()) {
-                    StationBeacon beacon = entry.getValue();
+                for (Map.Entry<Integer, TrainBeacon> entry : mBeaconMap.entrySet()) {
+                    TrainBeacon beacon = entry.getValue();
 
                     if (beacon.lastSeen < System.currentTimeMillis() - BEACON_REMOVAL_TIME) {
                         /*if (mCurrentBusStop != null && mCurrentBusStop.id == beacon.id) {
@@ -134,11 +134,11 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
             validateBeacon(beacon, major, minor);
         }
 
-        List<StationBeacon> list = new ArrayList<>(mBeaconMap.values());
+        List<TrainBeacon> list = new ArrayList<>(mBeaconMap.values());
         Collections.sort(list, (lhs, rhs) -> (int) (lhs.distance - rhs.distance));
 
         if (!beacons.isEmpty()) {
-            StationBeacon beacon = list.get(0);
+            TrainBeacon beacon = list.get(0);
             //setCurrentBusStop(beacon.id);
         }
 
@@ -148,7 +148,7 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
     @Override
     public void validateBeacon(Beacon beacon, int major, int minor) {
         if (mBeaconMap.containsKey(major)) {
-            StationBeacon beaconInfo = mBeaconMap.get(major);
+            TrainBeacon beaconInfo = mBeaconMap.get(major);
 
             beaconInfo.seen();
             beaconInfo.distance = beacon.getDistance();
@@ -160,7 +160,7 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
             Timber.i("Bus stop %d, seen: %d, distance: %f", major,
                     beaconInfo.seenSeconds, beaconInfo.distance);
         } else {
-            mBeaconMap.put(major, new StationBeacon(major));
+            mBeaconMap.put(major, new TrainBeacon(major));
 
             Timber.w("Added bus stop %d", major);
         }

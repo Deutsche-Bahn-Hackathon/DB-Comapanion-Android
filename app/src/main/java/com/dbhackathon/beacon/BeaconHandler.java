@@ -6,10 +6,10 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.RemoteException;
 
 import com.dbhackathon.beacon.station.StationBeaconHandler;
+import com.dbhackathon.beacon.train.TrainBeaconHandler;
 import com.dbhackathon.util.DeviceUtils;
 import com.dbhackathon.util.Utils;
 
@@ -37,13 +37,11 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
 
     private BeaconManager mBeaconManager;
 
-    private Region mRegionBus;
+    private Region mRegionTrain;
     private Region mRegionBusStop;
-    private Region mRegionEvent;
 
-    //private BusBeaconHandler mBusBeaconHandler;
+    private TrainBeaconHandler mTrainBeaconHandler;
     private StationBeaconHandler mBusStopBeaconHandler;
-    //private EventBeaconHandler mEventBeaconHandler;
 
     @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private RegionBootstrap mBootstrap;
@@ -51,7 +49,7 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
     @SuppressLint("StaticFieldLeak")
     private static BeaconHandler INSTANCE;
 
-    public static boolean isListening;
+    private static boolean isListening;
 
 
     private BeaconHandler(Context context) {
@@ -86,15 +84,12 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
             Timber.i("didRangeBeaconsInRegion(): %s %s", region.getUniqueId(), beacons.size());
 
             switch (region.getUniqueId()) {
-                /*case BusBeaconHandler.IDENTIFIER:
-                    mBusBeaconHandler.didRangeBeacons(beacons);
-                    break;*/
+                case TrainBeaconHandler.IDENTIFIER:
+                    mTrainBeaconHandler.didRangeBeacons(beacons);
+                    break;
                 case StationBeaconHandler.IDENTIFIER:
                     mBusStopBeaconHandler.didRangeBeacons(beacons);
                     break;
-                /*case EventBeaconHandler.IDENTIFIER:
-                    mEventBeaconHandler.didRangeBeacons(beacons);
-                    break;*/
                 default:
                     Timber.e("Unknown region id: %s", region.getUniqueId());
             }
@@ -107,18 +102,14 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
 
         try {
             switch (region.getUniqueId()) {
-                /*case BusBeaconHandler.IDENTIFIER:
-                    mBeaconManager.startRangingBeaconsInRegion(mRegionBus);
-                    mBusBeaconHandler.didEnterRegion();
-                    break;*/
+                case TrainBeaconHandler.IDENTIFIER:
+                    mBeaconManager.startRangingBeaconsInRegion(mRegionTrain);
+                    mTrainBeaconHandler.didEnterRegion();
+                    break;
                 case StationBeaconHandler.IDENTIFIER:
                     mBeaconManager.startRangingBeaconsInRegion(mRegionBusStop);
                     mBusStopBeaconHandler.didEnterRegion();
                     break;
-                /*case EventBeaconHandler.IDENTIFIER:
-                    mBeaconManager.startRangingBeaconsInRegion(mRegionEvent);
-                    mEventBeaconHandler.didEnterRegion();
-                    break;*/
                 default:
                     Timber.e("Unknown region id: %s", region.getUniqueId());
             }
@@ -133,19 +124,14 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
 
         try {
             switch (region.getUniqueId()) {
-                /*case BusBeaconHandler.IDENTIFIER:
-                    mBeaconManager.stopRangingBeaconsInRegion(mRegionBus);
-                    mBusBeaconHandler.inspectBeacons();
-                    mBusBeaconHandler.didExitRegion();
-                    break;*/
+                case TrainBeaconHandler.IDENTIFIER:
+                    mBeaconManager.stopRangingBeaconsInRegion(mRegionTrain);
+                    mTrainBeaconHandler.didExitRegion();
+                    break;
                 case StationBeaconHandler.IDENTIFIER:
                     mBeaconManager.stopRangingBeaconsInRegion(mRegionBusStop);
                     mBusStopBeaconHandler.didExitRegion();
                     break;
-                /*case EventBeaconHandler.IDENTIFIER:
-                    mBeaconManager.stopRangingBeaconsInRegion(mRegionEvent);
-                    mEventBeaconHandler.didExitRegion();
-                    break;*/
                 default:
                     Timber.e("Unknown region id: %s", region.getUniqueId());
             }
@@ -178,10 +164,6 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
 
     public void start() {
         Timber.e("start()");
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            return;
-        }
 
         if (isListening) {
             Timber.w("Already listening for beacons");
@@ -217,31 +199,11 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
         startInternal();
     }
 
-    public void stop() {
-        Timber.e("stop()");
-
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            return;
-        }
-
-        if (!isListening) {
-            Timber.e("Not listening, call to stop() will be ignored");
-            return;
-        }
-
-        if (mBeaconManager != null) {
-            mBeaconManager.unbind(this);
-        }
-
-        isListening = false;
-    }
-
     private void startInternal() {
         Timber.e("startInternal()");
 
-        //mBusBeaconHandler = BusBeaconHandler.getInstance(mContext);
+        mTrainBeaconHandler = TrainBeaconHandler.getInstance(mContext);
         mBusStopBeaconHandler = StationBeaconHandler.getInstance(mContext);
-        //mEventBeaconHandler = EventBeaconHandler.getInstance(mContext);
 
         mBeaconManager = BeaconManager.getInstanceForApplication(mContext);
         mBeaconManager.setRegionStatePeristenceEnabled(false);
@@ -255,14 +217,12 @@ public final class BeaconHandler implements BeaconConsumer, BootstrapNotifier {
         mBeaconManager.setBackgroundScanPeriod(3000);
         mBeaconManager.setBackgroundBetweenScanPeriod(0);
 
-        //mRegionBus = new Region(BusBeaconHandler.IDENTIFIER, Identifier.parse(BusBeaconHandler.UUID), null, null);
+        mRegionTrain = new Region(TrainBeaconHandler.IDENTIFIER, Identifier.parse(TrainBeaconHandler.UUID), null, null);
         mRegionBusStop = new Region(StationBeaconHandler.IDENTIFIER, Identifier.parse(StationBeaconHandler.UUID), null, null);
-        //mRegionEvent = new Region(EventBeaconHandler.IDENTIFIER, Identifier.parse(EventBeaconHandler.UUID), null, null);
 
         mBootstrap = new RegionBootstrap(this, Arrays.asList(
-                //mRegionBus,
+                mRegionTrain,
                 mRegionBusStop
-                //mRegionEvent
         ));
 
         mBeaconManager.bind(this);
