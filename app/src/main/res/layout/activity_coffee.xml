@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <FrameLayout
-    android:id="@+id/main_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -30,6 +30,16 @@
                 android:text="@string/order_coffee"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"/>
+
+            <Spinner
+                android:id="@+id/coffee_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="@dimen/padding_normal"
+                android:layout_marginRight="@dimen/padding_normal"
+                android:layout_marginTop="4dp"
+                />
 
             <TextView
                 android:id="@+id/coffee_description_text"
@@ -61,8 +71,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/enter_seat"
-                    android:textColor="@color/text_primary"
                     android:inputType="number"
+                    android:textColor="@color/text_primary"
                     android:textColorHint="@color/grey_400"
                     android:textSize="14sp"/>
 

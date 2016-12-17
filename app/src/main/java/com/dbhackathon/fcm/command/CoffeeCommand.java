@@ -22,6 +22,8 @@ public class CoffeeCommand implements FcmCommand {
         String content = data.get("content");
         JSONArray json = new JSONArray(content);
 
+        Coffee[] coffees = new Coffee[json.length()];
+
         for (int i = 0; i < json.length(); i++) {
             JSONObject object = json.getJSONObject(i);
 
@@ -30,7 +32,9 @@ public class CoffeeCommand implements FcmCommand {
             coffee.name = object.getString("name");
             coffee.price = object.getDouble("price");
 
-            Notifications.coffee(context, coffee);
+            coffees[i] = coffee;
         }
+
+        Notifications.coffee(context, coffees);
     }
 }
