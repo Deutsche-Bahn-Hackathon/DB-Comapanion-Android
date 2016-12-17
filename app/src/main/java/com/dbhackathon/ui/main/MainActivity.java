@@ -1,5 +1,6 @@
 package com.dbhackathon.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,7 +11,7 @@ import com.dbhackathon.data.model.StationResponse;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.network.TrainApi;
 import com.dbhackathon.ui.BaseActivity;
-import com.dbhackathon.util.DialogFactory;
+import com.dbhackathon.ui.station.StationActivity;
 import com.dbhackathon.util.Utils;
 
 import butterknife.BindView;
@@ -69,7 +70,7 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
 
                     @Override
                     public void onError(Throwable e) {
-                        DialogFactory.createErrorDialog(MainActivity.this, e.getMessage()).create();
+//                        DialogFactory.createErrorDialog(MainActivity.this, e.getMessage()).create();
 
                         Timber.e(e, "Could not load stations!");
                     }
@@ -88,6 +89,10 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
 
     @Override
     public void onClick(Station station) {
+        Intent intent = new Intent(this, StationActivity.class);
 
+        intent.putExtra(StationActivity.BUNDLE_STATION, station);
+
+        startActivity(intent);
     }
 }

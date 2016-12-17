@@ -16,7 +16,11 @@ import butterknife.ButterKnife;
 public class StationActivity extends BaseActivity {
 
     public static final String BUNDLE_STATION = "station";
-    public static final String BUNDLE_TRAINS = "trains";
+    public static final String BUNDLE_STATION_ID = "station_id";
+
+    public static final String BUNDLE_DEPARTURES_ARRIVALS = "departures_arrivals";
+    public static final String BUNDLE_DEPARTURES = "departures";
+    public static final String BUNDLE_ARRIVALS = "departures";
 
     private DepartureArrivalFragment mDepartureFragment;
     private DepartureArrivalFragment mArrivalFragment;
@@ -25,6 +29,8 @@ public class StationActivity extends BaseActivity {
     @BindView(R.id.tabs) TabLayout mTabLayout;
 
     private Station mStation;
+
+    private TabsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,7 @@ public class StationActivity extends BaseActivity {
         setContentView(R.layout.activity_station);
         ButterKnife.bind(this);
 
-        TabsAdapter mAdapter = new TabsAdapter(getSupportFragmentManager());
+        mAdapter = new TabsAdapter(getSupportFragmentManager());
 
         mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, android.R.color.white));
@@ -58,14 +64,20 @@ public class StationActivity extends BaseActivity {
             mArrivalFragment = new DepartureArrivalFragment();
         }
 
-        Bundle arrivals = new Bundle();
         Bundle departures = new Bundle();
+        Bundle arrivals = new Bundle();
 
-//        arrivals.putParcelableArrayList(BUNDLE_TRAINS, mStation.getArrivals());
-//        departures.putParcelableArrayList(BUNDLE_TRAINS, mStation.getDepartures());
+        departures.putString(BUNDLE_DEPARTURES_ARRIVALS, BUNDLE_DEPARTURES);
+        departures.putString(BUNDLE_STATION_ID, String.valueOf(mStation.id()));
+
+        arrivals.putString(BUNDLE_DEPARTURES_ARRIVALS, BUNDLE_ARRIVALS);
+        arrivals.putString(BUNDLE_STATION_ID, String.valueOf(mStation.id()));
+
+        mDepartureFragment.setArguments(departures);
+        mArrivalFragment.setArguments(arrivals);
 
         mAdapter.addFragment(mDepartureFragment, "Departures");
-        mAdapter.addFragment(mArrivalFragment, "Arrival");
+        mAdapter.addFragment(mArrivalFragment, "Arrivals");
 
         mViewPager.setAdapter(mAdapter);
         mTabLayout.setupWithViewPager(mViewPager);

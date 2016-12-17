@@ -10,6 +10,7 @@ import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.util.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -27,8 +28,17 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
 
     private Utils.ActionListener<Train> mActionListener;
 
-    public TrainAdapter(List<Train> items) {
-        mItems = items;
+    public TrainAdapter() {
+        mItems = new ArrayList<>();
+    }
+
+    public void setItems(List<Train> items) {
+        mItems.clear();
+
+        if (items != null) {
+            mItems = items;
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -42,7 +52,8 @@ public class TrainAdapter extends RecyclerView.Adapter<TrainAdapter.TrainViewHol
     public void onBindViewHolder(TrainViewHolder holder, int position) {
         Train train = mItems.get(position);
 
-        holder.track.setText(String.format(holder.track.getText().toString(), position));
+        holder.track.setText(String.format(holder.track.getText().toString(), train.track()));
+        holder.name.setText(train.name());
     }
 
     public void setActionListener(Utils.ActionListener<Train> actionListener) {
