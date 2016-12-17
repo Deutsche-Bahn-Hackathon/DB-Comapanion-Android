@@ -1,7 +1,11 @@
 package com.dbhackathon.util;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
+import android.support.customtabs.CustomTabsIntent;
 
 /**
  * Utility class which holds various methods to help with things like logging exceptions.
@@ -27,6 +31,27 @@ public final class Utils {
     @SuppressWarnings("ChainOfInstanceofChecks")
     public static void logException(Throwable t) {
         t.printStackTrace();
+    }
+
+    public static void openCustomTab(String url, Context context) {
+        if (isPackageInstalled("com.android.chrome", context.getPackageManager())) {
+            CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+                    .build();
+            customTabsIntent.launchUrl(context, Uri.parse(url));
+        } else {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setData(Uri.parse(url));
+            context.startActivity(intent);
+        }
+    }
+
+    private static boolean isPackageInstalled(String packagename, PackageManager packageManager) {
+        try {
+            packageManager.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
+        }
     }
 
     public interface ActionListener<T> {

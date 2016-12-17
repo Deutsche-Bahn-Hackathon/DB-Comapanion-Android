@@ -1,15 +1,24 @@
 package com.dbhackathon.ui.train;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.BaseActivity;
+import com.dbhackathon.util.Utils;
+import com.google.android.gms.vision.Frame;
+import com.google.android.gms.vision.barcode.Barcode;
+import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,11 +85,49 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.train_action_survey:
-                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                scanQRCode();
                 break;
             case R.id.train_action_statistics:
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
+        }
+    }
+
+    private void scanQRCode() {
+        Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        startActivityForResult(cameraIntent, Config.CAMERA_PIC_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Config.CAMERA_PIC_REQUEST && data != null) {
+
+            Bundle bundle = data.getExtras();
+
+            if (bundle == null) {
+                return;
+            }
+
+            Bitmap thumbnail = (Bitmap) bundle.get("data");
+
+            BarcodeDetector barcodeDetector = new BarcodeDetector.Builder(this)
+                    .setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                    .build();
+
+            if (barcodeDetector.isOperational() && thumbnail != null) {
+                Frame frame = new Frame.Builder().setBitmap(thumbnail).build();
+
+                SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
+
+                if (barcodes.size() > 0) {
+                    Utils.openCustomTab(barcodes.get(barcodes.keyAt(0)).displayValue, this);
+                } else {
+                    Snackbar.make(getMainContent(), getString(R.string.could_not_recognize_qr), Snackbar.LENGTH_INDEFINITE)
+                            .setAction(R.string.retry, v -> scanQRCode())
+                            .show();
+                }
+            }
         }
     }
 }

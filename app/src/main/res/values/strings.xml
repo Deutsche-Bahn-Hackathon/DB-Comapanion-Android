@@ -25,11 +25,11 @@
     <string name="enter_seat">Enter your seat</string>
     <string name="order_coffee">Order a coffee</string>
 
-
-
     <string name="bottom_sheet_delayed">%d\' delayed</string>
     <string name="bottom_sheet_early">%d\' ahead</string>
     <string name="bottom_sheet_punctual">Punctual</string>
     <string name="line_details_current_stop">Now at %s</string>
+    <string name="could_not_recognize_qr">Could not recognize QR-code</string>
+    <string name="retry">Retry</string>
 
 </resources>
