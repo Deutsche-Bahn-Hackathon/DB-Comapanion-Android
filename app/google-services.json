@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "336100412719",
+    "firebase_url": "https://deutsche-bahn-api.firebaseio.com",
+    "project_id": "deutsche-bahn-api",
+    "storage_bucket": "deutsche-bahn-api.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:336100412719:android:8275af4f755c59d4",
+        "android_client_info": {
+          "package_name": "com.dbhackathon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "336100412719-nt34g305ncdadsnqioqpou54e1e3ec65.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dbhackathon",
+            "certificate_hash": "1C5331CBE893B49D989E29C23BCB8BED23F35355"
+          }
+        },
+        {
+          "client_id": "336100412719-kpgu9oc2fehs1ik5bvm8h04227lj6g0m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfE1SKg7hf_v7cgNEDUfeFNt9sg16aIJQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "336100412719-kpgu9oc2fehs1ik5bvm8h04227lj6g0m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
