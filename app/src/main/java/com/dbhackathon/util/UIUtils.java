@@ -51,10 +51,6 @@ public final class UIUtils {
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static void styleRecentTasksEntry(Activity activity, int color) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            return;
-        }
-
         Resources resources = activity.getResources();
         String label = resources.getString(activity.getApplicationInfo().labelRes);
 

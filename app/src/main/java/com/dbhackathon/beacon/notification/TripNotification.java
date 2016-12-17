@@ -14,7 +14,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
@@ -122,9 +121,7 @@ public final class TripNotification {
 
         Notification notification = builder.build();
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            notification.bigContentView = getBigNotificationView(context, trip);
-        }
+        notification.bigContentView = getBigNotificationView(context, trip);
 
         NotificationManager notificationManager = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -321,9 +318,7 @@ public final class TripNotification {
         circularImage.setStroke(Math.round(4 * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT)),
                 color);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            circularImage.setColor(color);
-        }
+        circularImage.setColor(color);
 
         int size = Math.round(64 * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
 

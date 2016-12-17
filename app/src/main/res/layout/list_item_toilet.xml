@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -13,7 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginRight="128dp"
+        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
@@ -36,4 +37,16 @@
 
     </LinearLayout>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/list_item_toilet_direction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginRight="16dp"
+        android:gravity="end"
+        android:lines="2"
+        android:text="2 wagons in\ndriving direction"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"/>
+
+</FrameLayout>

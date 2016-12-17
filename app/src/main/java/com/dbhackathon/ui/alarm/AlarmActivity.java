@@ -1,4 +1,4 @@
-package com.dbhackathon.ui.toilet;
+package com.dbhackathon.ui.alarm;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.animation.FastOutSlowInInterpolator;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,26 +13,16 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 
-import com.dbhackathon.Config;
 import com.dbhackathon.R;
-import com.dbhackathon.data.model.Facility;
-import com.dbhackathon.data.model.Train;
-import com.dbhackathon.data.network.NetUtils;
-import com.dbhackathon.data.network.RestClient;
-import com.dbhackathon.data.network.api.FacilityApi;
+import com.dbhackathon.data.model.Station;
 import com.dbhackathon.ui.BaseActivity;
 import com.dbhackathon.ui.widget.RecyclerItemDivider;
-import com.dbhackathon.util.NextObserver;
 import com.dbhackathon.util.UIUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 /**
  * Allows the user to pick a departure/arrival bus stop by searching it by either title or
@@ -41,9 +30,7 @@ import timber.log.Timber;
  *
  * @author Alex Lardschneider
  */
-public class ToiletActivity extends BaseActivity {
-
-    @BindView(R.id.refresh) SwipeRefreshLayout mRefresh;
+public class AlarmActivity extends BaseActivity {
 
     public static final String EXTRA_X_POS = "com.dbhackathon.EXTRA_X_POS";
     public static final String EXTRA_Y_POS = "com.dbhackathon.EXTRA_Y_POS";
@@ -51,35 +38,18 @@ public class ToiletActivity extends BaseActivity {
     private int mSearchX;
     private int mSearchY;
 
-    private List<Facility> mItems;
-    private ToiletAdapter mAdapter;
-
-    private Train mTrain;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        if (!intent.hasExtra(Config.EXTRA_TRAIN)) {
-            Timber.e("Missing intent extra %s", Config.EXTRA_TRAIN);
-            finish();
-            return;
-        }
-
-        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
-
         setResult(RESULT_CANCELED, intent);
 
-        setContentView(R.layout.activity_toilet);
+        setContentView(R.layout.activity_alarm);
         ButterKnife.bind(this);
 
         mSearchX = (int) intent.getFloatExtra(EXTRA_X_POS, 0);
         mSearchY = (int) intent.getFloatExtra(EXTRA_Y_POS, 0);
-
-        mRefresh.setColorSchemeResources(Config.REFRESH_COLORS);
-        mRefresh.setRefreshing(true);
-        mRefresh.setOnRefreshListener(this::parseData);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = getToolbar();
@@ -89,16 +59,28 @@ public class ToiletActivity extends BaseActivity {
 
         overridePendingTransition(0, 0);
 
-        mItems = new ArrayList<>();
-        mAdapter = new ToiletAdapter(this, mItems);
+        List<Station> mitems = new ArrayList<>();
+        mitems.add(Station.create("8000261", "München Hbf", "", ""));
+        mitems.add(Station.create("8000183", "Ingolstadt Hbf", "", ""));
+        mitems.add(Station.create("8096025", "Nürnberg", "", ""));
+        mitems.add(Station.create("8001844", "Erlangen", "", ""));
+        mitems.add(Station.create("8000025", "Bamberg", "", ""));
+        mitems.add(Station.create("8000228", "Lichtenfels", "", ""));
+        mitems.add(Station.create("8011956", "Jena Paradies", "", ""));
+        mitems.add(Station.create("8010240", "Naumburg (Saale) Hbf", "", ""));
+        mitems.add(Station.create("8010205", "Leipzig Hbf", "", ""));
+        mitems.add(Station.create("8010050", "Bitterfeld", "", ""));
+        mitems.add(Station.create("8010222", "Lutherstadt Wittenberg Hbf", "", ""));
+        mitems.add(Station.create("8011113", "Berlin Südkreuz", "", ""));
+        mitems.add(Station.create("8011160", "Berlin Hbf", "", ""));
+
+        AlarmAdapter adapter = new AlarmAdapter(this, mitems);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
         recyclerView.addItemDecoration(new RecyclerItemDivider(this));
-        recyclerView.setAdapter(mAdapter);
-
-        parseData();
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -120,29 +102,6 @@ public class ToiletActivity extends BaseActivity {
         return NAVDRAWER_ITEM_INVALID;
     }
 
-
-    private void parseData() {
-        if (!NetUtils.isOnline(this)) {
-            Timber.e("Device is OFFLINE");
-            return;
-        }
-
-        FacilityApi facilityApi = RestClient.ADAPTER.create(FacilityApi.class);
-        facilityApi.toilets(mTrain.name().replace(" ", "").toLowerCase(), "22")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new NextObserver<List<Facility>>() {
-                    @Override
-                    public void onNext(List<Facility> facilities) {
-                        mItems.clear();
-                        mItems.addAll(facilities);
-
-                        mAdapter.notifyDataSetChanged();
-
-                        mRefresh.setRefreshing(false);
-                    }
-                });
-    }
 
     /**
      * On Lollipop+ perform a circular reveal animation (an expanding circular mask) when showing
@@ -231,7 +190,7 @@ public class ToiletActivity extends BaseActivity {
             @Override
             public void onAnimationEnd(Animator animation) {
                 searchPanel.setVisibility(View.INVISIBLE);
-                ActivityCompat.finishAfterTransition(ToiletActivity.this);
+                ActivityCompat.finishAfterTransition(AlarmActivity.this);
             }
         });
         shrink.start();

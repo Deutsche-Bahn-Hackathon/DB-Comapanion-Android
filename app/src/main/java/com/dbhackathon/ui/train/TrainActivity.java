@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,7 +18,9 @@ import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.BaseActivity;
+import com.dbhackathon.ui.alarm.AlarmActivity;
 import com.dbhackathon.ui.toilet.ToiletActivity;
+import com.dbhackathon.util.Settings;
 import com.dbhackathon.util.Utils;
 import com.google.android.gms.vision.Frame;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -39,6 +43,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
     @BindView(R.id.train_action_attractions) RelativeLayout mActionAttractions;
     @BindView(R.id.train_action_survey) RelativeLayout mActionSurveys;
     @BindView(R.id.train_action_statistics) RelativeLayout mActionStatistics;
+
+    @BindView(R.id.train_action_alarm_delete) ImageView mDeleteAlarm;
 
     private Train mTrain;
 
@@ -64,6 +70,10 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
             return;
         }
 
+        if (!Settings.hasAlarms(this)) {
+            mDeleteAlarm.setVisibility(View.GONE);
+        }
+
         mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
 
         mActionAlarm.setOnClickListener(this);
@@ -73,7 +83,10 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
         mActionSurveys.setOnClickListener(this);
         mActionStatistics.setOnClickListener(this);
 
+        mDeleteAlarm.setOnClickListener(this);
+
         mActionToilets.setOnTouchListener(this);
+        mActionAlarm.setOnTouchListener(this);
 
         mTitleText.setText(getString(R.string.welcome_to_train, mTrain.name()));
         mDepartureText.setText(getString(R.string.train_from, "Munich Hbf"));
@@ -89,24 +102,20 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.train_action_alarm:
-                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, AlarmActivity.class);
+                intent.putExtra(ToiletActivity.EXTRA_X_POS, lastTouchX);
+                intent.putExtra(ToiletActivity.EXTRA_Y_POS, lastTouchY);
+                startActivity(intent);
                 break;
             case R.id.train_action_bar:
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.train_action_toilets:
-                Intent intent = new Intent(this, ToiletActivity.class);
+                intent = new Intent(this, ToiletActivity.class);
                 intent.putExtra(Config.EXTRA_TRAIN, mTrain);
                 intent.putExtra(ToiletActivity.EXTRA_X_POS, lastTouchX);
                 intent.putExtra(ToiletActivity.EXTRA_Y_POS, lastTouchY);
-                startActivityForResult(intent, 0);
-
-                /*new AlertDialog.Builder(this, R.style.DialogStyle)
-                        .setTitle(getString(R.string.toilets))
-                        .setMessage("Please walk in direction of travel for two wagons!")
-                        .setNeutralButton(android.R.string.ok, null)
-                        .create()
-                        .show();*/
+                startActivity(intent);
                 break;
             case R.id.train_action_attractions:
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
@@ -116,6 +125,19 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
                 break;
             case R.id.train_action_statistics:
                 Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.train_action_alarm_delete:
+                new AlertDialog.Builder(this, R.style.DialogStyle)
+                        .setTitle("Delete alert?")
+                        .setMessage("Do you really want to delete this alert? This cannot be undone.")
+                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            mDeleteAlarm.setVisibility(View.GONE);
+                            Settings.setHasAlarms(TrainActivity.this, false);
+                            dialog.dismiss();
+                        })
+                        .create()
+                        .show();
                 break;
         }
     }
@@ -161,6 +183,18 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
 
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!Settings.hasAlarms(this)) {
+            mDeleteAlarm.setVisibility(View.GONE);
+        } else {
+            mDeleteAlarm.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     private void scanQRCode() {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);

@@ -16,12 +16,12 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ToiletAdapter extends RecyclerView.Adapter<ToiletAdapter.ViewHolder> {
+class ToiletAdapter extends RecyclerView.Adapter<ToiletAdapter.ViewHolder> {
 
     private Context mContext;
     private List<Facility> mItems;
 
-    public ToiletAdapter(Context context, List<Facility> items) {
+    ToiletAdapter(Context context, List<Facility> items) {
         this.mContext = context;
         this.mItems = items;
     }
@@ -42,6 +42,13 @@ public class ToiletAdapter extends RecyclerView.Adapter<ToiletAdapter.ViewHolder
         holder.status.setText("Toilet " + (facility.free() ? "unoccupied" : "occupied"));
         holder.status.setTextColor(ContextCompat.getColor(mContext, facility.free() ?
                 R.color.material_green_500 : R.color.material_red_500));
+
+        String wagon = facility.toGo() > 1 ? "wagons" : "wagon";
+
+        String text = String.format("%s %s %s\ndriving direction", facility.toGo(), wagon,
+                (facility.drivingDirection() ? "in" : "against"));
+
+        holder.direction.setText(text);
     }
 
     @Override
@@ -49,16 +56,16 @@ public class ToiletAdapter extends RecyclerView.Adapter<ToiletAdapter.ViewHolder
         return mItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.list_item_toilet_wagon) TextView wagon;
         @BindView(R.id.list_item_toilet_status) TextView status;
+        @BindView(R.id.list_item_toilet_direction) TextView direction;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
         }
     }
-
 }

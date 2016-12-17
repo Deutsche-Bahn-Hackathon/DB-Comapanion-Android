@@ -66,6 +66,13 @@
             android:launchMode="singleTop"
             android:theme="@style/Theme.Search" />
 
+        <activity
+            android:name=".ui.alarm.AlarmActivity"
+            android:exported="false"
+            android:label="@string/title_alarms"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Search" />
+
 
         <!-- Services -->
 

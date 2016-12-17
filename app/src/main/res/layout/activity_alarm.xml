@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- we use this scrim view rather than a semi-opaque window background so that we can
+         overlap it's enter/exit animation with content animations i.e. circular reveal/hide
+         of the search panel on v21+. -->
+
+    <View
+        android:id="@+id/scrim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="@fraction/search_scrim_alpha"
+        android:background="@color/background_dialog"
+        android:onClick="dismiss"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/search_panel"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/padding_xxxlarge"
+        android:layout_marginLeft="@dimen/padding_xlarge"
+        android:layout_marginRight="@dimen/padding_xlarge"
+        android:layout_marginTop="@dimen/padding_xxxlarge"
+        app:cardBackgroundColor="@color/card_background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?colorPrimary"
+                android:elevation="4dp"
+                android:gravity="center_vertical"
+                android:theme="@style/ToolbarOverlay"
+                app:popupTheme="@style/MenuOverlay"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+</merge>

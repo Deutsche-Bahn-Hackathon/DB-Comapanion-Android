@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.DrawerLayout
+    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -129,6 +129,20 @@
                                 android:text="@string/alert_on_exit"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"/>
+
+                            <ImageView
+                                android:id="@+id/train_action_alarm_delete"
+                                android:visibility="gone"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginRight="16dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true"
+                                android:src="@drawable/ic_delete_forever_white_24dp"
+                                android:tint="@color/icon_grey"/>
 
                         </RelativeLayout>
 
@@ -262,8 +276,8 @@
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_timeline_white_24dp"
                                 android:tint="@color/colorAccent"/>
-                                android:src="@drawable/ic_timeline_white_24dp"
-                                android:tint="?colorAccent"/>
+                            android:src="@drawable/ic_timeline_white_24dp"
+                            android:tint="?colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
