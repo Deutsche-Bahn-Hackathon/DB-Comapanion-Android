@@ -44,7 +44,11 @@ public class FcmService extends FirebaseMessagingService {
         if (command == null) {
             Timber.e("Unknown command received: %s", receiver);
         } else {
-            command.execute(this, message.getData());
+            try {
+                command.execute(this, message.getData());
+            } catch (Exception e) {
+                Timber.e(e, "Could not execute fcm command");
+            }
         }
     }
 }

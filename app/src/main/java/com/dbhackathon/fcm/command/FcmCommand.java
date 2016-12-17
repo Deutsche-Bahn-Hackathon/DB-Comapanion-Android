@@ -11,5 +11,5 @@ import java.util.Map;
  * @author Alex Lardschneider
  */
 public interface FcmCommand {
-    void execute(Context context, @NonNull Map<String, String> data);
+    void execute(Context context, @NonNull Map<String, String> data) throws Exception;
 }

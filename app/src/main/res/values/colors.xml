@@ -49,6 +49,9 @@
     <color name="material_teal_500">#009688</color>
     <color name="material_teal_700">#00796B</color>
 
+    <color name="material_brown_500">#795548</color>
+    <color name="material_brown_700">#5D4037</color>
+
     <color name="primary_light_blue">#34495e</color>
 
     <color name="material_blue_grey_500">#607D8B</color>

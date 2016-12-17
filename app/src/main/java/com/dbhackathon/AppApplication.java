@@ -5,6 +5,7 @@ import android.app.Application;
 import com.dbhackathon.beacon.BeaconHandler;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.realm.RealmHelper;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import io.realm.Realm;
 import io.realm.log.LogLevel;
@@ -30,6 +31,8 @@ public class AppApplication extends Application {
         RestClient.init(this);
 
         initBeacons();
+
+        FirebaseMessaging.getInstance().subscribeToTopic("ice1206");
     }
 
 
