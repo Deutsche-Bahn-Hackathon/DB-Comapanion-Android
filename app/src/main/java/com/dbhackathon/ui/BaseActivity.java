@@ -21,7 +21,6 @@ import android.view.View;
 
 import com.dbhackathon.R;
 import com.dbhackathon.ui.main.MainActivity;
-import com.dbhackathon.ui.station.StationActivity;
 import com.dbhackathon.ui.train.TrainActivity;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.android.ActivityEvent;
@@ -56,15 +55,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
      * on a navigation drawer item.
      */
     private static final String ACTION_FADE_CONTENT = "com.davale.sasabus.ACTION_FADE_CONTENT";
-    public static final String ACTION_NO_CHANGELOG = "com.davale.sasabus.ACTION_NO_CHANGELOG";
 
     /**
      * The menu item ids for the navigation drawer.
      */
     protected static final int NAVDRAWER_ITEM_INVALID = -1;
 
-    protected static final int NAVDRAWER_ITEM_MAIN = R.id.nav_main;
-    protected static final int NAVDRAWER_ITEM_STATION = R.id.nav_station;
+    protected static final int NAVDRAWER_ITEM_STATIONS = R.id.nav_stations;
     protected static final int NAVDRAWER_ITEM_TRAIN = R.id.nav_train;
 
     /**
@@ -258,11 +255,8 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
      */
     private void goToNavDrawerItem(int item) {
         switch (item) {
-            case NAVDRAWER_ITEM_MAIN:
+            case NAVDRAWER_ITEM_STATIONS:
                 createBackStack(new Intent(this, MainActivity.class));
-                break;
-            case NAVDRAWER_ITEM_STATION:
-                createBackStack(new Intent(this, StationActivity.class));
                 break;
             case NAVDRAWER_ITEM_TRAIN:
                 createBackStack(new Intent(this, TrainActivity.class));

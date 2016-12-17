@@ -172,6 +172,11 @@
     <style name="CollapsingToolbar.Collapsed"
            parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
+    <style name="CollapsingToolbar.Collapsed.Hidden"
+           parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">#00FFFFFF</item>
+    </style>
+
 
     <!-- ======================================== TOOLBAR =======================================-->
 

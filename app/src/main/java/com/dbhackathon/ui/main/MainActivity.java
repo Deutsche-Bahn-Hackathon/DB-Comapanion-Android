@@ -2,6 +2,7 @@ package com.dbhackathon.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -12,25 +13,26 @@ import com.dbhackathon.data.model.StationResponse;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.network.TrainApi;
 import com.dbhackathon.ui.BaseActivity;
-import com.dbhackathon.ui.station.StationActivity;
+import com.dbhackathon.ui.station.StationDetailsActivity;
+import com.dbhackathon.ui.widget.RecyclerItemDivider;
+import com.dbhackathon.util.NextObserver;
 import com.dbhackathon.util.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Retrofit;
-import rx.Subscriber;
-import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements Utils.ActionListener<Station> {
 
     @BindView(R.id.recycler) RecyclerView mRecyclerView;
+    @BindView(R.id.refresh) SwipeRefreshLayout mRefresh;
 
+    private List<Station> mItems;
     private StationAdapter mAdapter;
-    private Subscription mSubscription;
-    private Retrofit mRetrofit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,60 +42,58 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
 
         ButterKnife.bind(this);
 
-        mRetrofit = RestClient.ADAPTER;
+        mRefresh.setColorSchemeResources(Config.REFRESH_COLORS);
+        mRefresh.setOnRefreshListener(this::loadStations);
 
-        mAdapter = new StationAdapter();
+        mItems = new ArrayList<>();
+        mAdapter = new StationAdapter(mItems);
+
         mAdapter.setActionListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.addItemDecoration(new RecyclerItemDivider(this));
 
         loadStations();
     }
 
     private void loadStations() {
-        if (mSubscription != null) {
-            mSubscription.unsubscribe();
-        }
+        mRefresh.setRefreshing(true);
 
-        TrainApi trainApi = mRetrofit.create(TrainApi.class);
-
-        mSubscription = trainApi.getStations()
+        TrainApi trainApi = RestClient.ADAPTER.create(TrainApi.class);
+        trainApi.getStations()
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .compose(bindToLifecycle())
-                .subscribe(new Subscriber<StationResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
+                .subscribe(new NextObserver<StationResponse>() {
                     @Override
                     public void onError(Throwable e) {
-//                        DialogFactory.createErrorDialog(MainActivity.this, e.getMessage()).create();
-
-                        Timber.e(e, "Could not load stations!");
+                        super.onError(e);
+                        mRefresh.setRefreshing(false);
                     }
 
                     @Override
-                    public void onNext(StationResponse stationResponse) {
-                        mAdapter.setItems(stationResponse.stations());
+                    public void onNext(StationResponse response) {
+                        mItems.clear();
+                        mItems.addAll(response.stations());
+
+                        mAdapter.notifyDataSetChanged();
+
+                        mRefresh.setRefreshing(false);
                     }
                 });
     }
 
     @Override
     protected int getNavItem() {
-        return NAVDRAWER_ITEM_MAIN;
+        return NAVDRAWER_ITEM_STATIONS;
     }
 
     @Override
     public void onClick(Station station) {
-        Intent intent = new Intent(this, StationActivity.class);
-
+        Intent intent = new Intent(this, StationDetailsActivity.class);
         intent.putExtra(Config.EXTRA_STATION, station);
-
         startActivity(intent);
     }
 }
