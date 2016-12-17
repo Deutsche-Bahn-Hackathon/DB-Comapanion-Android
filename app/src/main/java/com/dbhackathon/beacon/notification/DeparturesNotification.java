@@ -83,7 +83,7 @@ public final class DeparturesNotification {
         Timber.e("Showing notification for bus stop %d", beacon.major);
 
         TrainApi trainApi = RestClient.ADAPTER.create(TrainApi.class);
-        trainApi.getDepArrs(String.valueOf(beacon.major), "departures")
+        trainApi.getDepArrs(String.valueOf(beacon.station().id()), "departures")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new NextObserver<TrainResponse>() {

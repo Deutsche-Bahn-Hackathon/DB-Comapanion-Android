@@ -106,7 +106,7 @@ public final class TripNotification {
                 .setSmallIcon(R.drawable.ic_train_white_24dp)
                 .setColor(ContextCompat.getColor(context, R.color.material_red_500))
                 .setOngoing(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent);
 
         Intent resultIntent = new Intent(context, TrainActivity.class);

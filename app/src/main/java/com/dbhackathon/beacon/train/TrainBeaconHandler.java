@@ -241,13 +241,9 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
     private void hideCurrentTrip(CurrentTrip trip) {
         Timber.i("hideCurrentTrip()");
 
-        if (trip.isNotificationVisible()) {
-            TripNotification.hide(mContext, trip);
+        TripNotification.hide(mContext, trip);
 
-            mBeaconStorage.saveCurrentTrip(trip);
-        } else {
-            Timber.i("Current trip has no notification.");
-        }
+        mBeaconStorage.saveCurrentTrip(trip);
     }
 
 

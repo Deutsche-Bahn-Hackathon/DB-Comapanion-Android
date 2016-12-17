@@ -40,7 +40,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_0_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -53,7 +53,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_0_time"
-            android:layout_width="68dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -96,7 +96,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_1_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -108,7 +108,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_1_time"
-            android:layout_width="68dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -150,7 +150,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_2_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -162,7 +162,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_2_time"
-            android:layout_width="70dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -205,7 +205,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_3_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -217,7 +217,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_3_time"
-            android:layout_width="70dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -260,7 +260,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_4_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -272,7 +272,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_4_time"
-            android:layout_width="70dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -315,7 +315,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_5_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -327,7 +327,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_5_time"
-            android:layout_width="70dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"
@@ -369,7 +369,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_6_line"
-            android:layout_width="40dp"
+            android:layout_width="72dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="16dp"
@@ -381,7 +381,7 @@
 
         <TextView
             android:id="@+id/notification_departures_row_6_time"
-            android:layout_width="70dp"
+            android:layout_width="48dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:fontFamily="sans-serif-condensed"

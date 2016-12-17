@@ -116,7 +116,7 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
     public void didExitRegion() {
         Timber.w("Stopping bus stop beacon handler");
 
-        //DeparturesNotification.hide(mContext);
+        DeparturesNotification.hide(mContext);
 
         HANDLER.postDelayed(STOP_TIMER, BEACON_REMOVAL_TIME + TIMER_INTERVAL);
     }
