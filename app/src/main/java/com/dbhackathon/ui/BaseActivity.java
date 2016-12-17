@@ -22,6 +22,7 @@ import android.view.View;
 import com.dbhackathon.R;
 import com.dbhackathon.ui.main.MainActivity;
 import com.dbhackathon.ui.station.StationActivity;
+import com.dbhackathon.ui.train.TrainActivity;
 import com.trello.rxlifecycle.LifecycleTransformer;
 import com.trello.rxlifecycle.android.ActivityEvent;
 import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
@@ -64,6 +65,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
 
     protected static final int NAVDRAWER_ITEM_MAIN = R.id.nav_main;
     protected static final int NAVDRAWER_ITEM_STATION = R.id.nav_station;
+    protected static final int NAVDRAWER_ITEM_TRAIN = R.id.nav_train;
 
     /**
      * Delay to launch nav drawer item, to allow close animation to play
@@ -262,6 +264,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
             case NAVDRAWER_ITEM_STATION:
                 createBackStack(new Intent(this, StationActivity.class));
                 break;
+            case NAVDRAWER_ITEM_TRAIN:
+                createBackStack(new Intent(this, TrainActivity.class));
+                break;
             default:
                 throw new IllegalStateException("Unknown nav drawer item id " + item);
         }
@@ -280,12 +285,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements
 
         // launch the target Activity after a short delay, to allow the close animation to play
 //        mHandler.postDelayed(() -> goToNavDrawerItem(itemId), NAVDRAWER_LAUNCH_DELAY);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                goToNavDrawerItem(itemId);
-            }
-        }, NAVDRAWER_LAUNCH_DELAY);
+        mHandler.postDelayed(() -> goToNavDrawerItem(itemId), NAVDRAWER_LAUNCH_DELAY);
 
         // fade out the main content
         View mainContent = findViewById(R.id.main_content);

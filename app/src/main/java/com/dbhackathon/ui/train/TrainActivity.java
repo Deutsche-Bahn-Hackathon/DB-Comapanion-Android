@@ -7,15 +7,7 @@ import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
 import com.dbhackathon.ui.BaseActivity;
 
-/**
- * Created on 12/16/16.
- *
- * @author Martin Fink
- */
-
 public class TrainActivity extends BaseActivity {
-
-    public static final String BUNDLE_TRAIN = "train";
 
     private Train mTrain;
 
@@ -27,21 +19,17 @@ public class TrainActivity extends BaseActivity {
 
         Intent intent = getIntent();
 
-        Bundle bundle = intent.getExtras();
-
-        if (bundle == null) {
-            throw new IllegalArgumentException("Not all extras are satisifed!");
+        /*if (!intent.hasExtra(Config.EXTRA_TRAIN)) {
+            Timber.e("Missing intent extra %s", Config.EXTRA_TRAIN);
+            finish();
+            return;
         }
 
-        mTrain = bundle.getParcelable(BUNDLE_TRAIN);
-
-        if (mTrain == null) {
-            throw new IllegalArgumentException("BUNDLE_TRAIN cannot be null!");
-        }
+        mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);*/
     }
 
     @Override
     protected int getNavItem() {
-        return NAVDRAWER_ITEM_INVALID;
+        return NAVDRAWER_ITEM_TRAIN;
     }
 }

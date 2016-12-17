@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
@@ -7,12 +8,16 @@
             android:id="@+id/nav_main"
             android:icon="@drawable/ic_launcher_simple"
             android:title="@string/nav_home"/>
-            android:title="MAIN"/>
 
         <item
             android:id="@+id/nav_station"
             android:icon="@drawable/ic_store_white_24dp"
             android:title="Station"/>
+
+        <item
+            android:id="@+id/nav_train"
+            android:icon="@drawable/ic_train_white_24dp"
+            android:title="Train"/>
 
     </group>
 

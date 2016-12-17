@@ -57,7 +57,13 @@
         <activity
             android:name=".ui.train.TrainActivity"
             android:label="@string/train"
-            android:theme="@style/AppTheme.NavigationDrawer"/>
+            android:theme="@style/AppTheme.NavigationDrawer"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
 
         <!-- Services -->
