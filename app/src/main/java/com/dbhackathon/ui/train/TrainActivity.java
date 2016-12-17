@@ -13,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dbhackathon.Config;
 import com.dbhackathon.R;
@@ -40,11 +39,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
     @BindView(R.id.train_arrival_text) TextView mArrivalText;
 
     @BindView(R.id.train_action_alarm) RelativeLayout mActionAlarm;
-    @BindView(R.id.train_action_bar) RelativeLayout mActionBars;
     @BindView(R.id.train_action_toilets) RelativeLayout mActionToilets;
-    @BindView(R.id.train_action_attractions) RelativeLayout mActionAttractions;
     @BindView(R.id.train_action_survey) RelativeLayout mActionSurveys;
-    @BindView(R.id.train_action_statistics) RelativeLayout mActionStatistics;
 
     @BindView(R.id.train_action_alarm_delete) ImageView mDeleteAlarm;
 
@@ -82,11 +78,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
         }
 
         mActionAlarm.setOnClickListener(this);
-        mActionBars.setOnClickListener(this);
         mActionToilets.setOnClickListener(this);
-        mActionAttractions.setOnClickListener(this);
         mActionSurveys.setOnClickListener(this);
-        mActionStatistics.setOnClickListener(this);
 
         mDeleteAlarm.setOnClickListener(this);
 
@@ -124,9 +117,6 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
                 intent.putExtra(ToiletActivity.EXTRA_Y_POS, lastTouchY);
                 startActivity(intent);
                 break;
-            case R.id.train_action_bar:
-                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
-                break;
             case R.id.train_action_toilets:
                 intent = new Intent(this, ToiletActivity.class);
                 intent.putExtra(Config.EXTRA_TRAIN, mTrain);
@@ -134,14 +124,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
                 intent.putExtra(ToiletActivity.EXTRA_Y_POS, lastTouchY);
                 startActivity(intent);
                 break;
-            case R.id.train_action_attractions:
-                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
-                break;
             case R.id.train_action_survey:
                 scanQRCode();
-                break;
-            case R.id.train_action_statistics:
-                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
                 break;
             case R.id.train_action_alarm_delete:
                 new AlertDialog.Builder(this, R.style.DialogStyle)

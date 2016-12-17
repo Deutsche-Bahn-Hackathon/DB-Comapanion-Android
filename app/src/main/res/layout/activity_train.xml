@@ -149,35 +149,6 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/train_action_bar"
-                            android:layout_width="match_parent"
-                            android:layout_height="56dp"
-                            android:background="?android:attr/selectableItemBackground">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_local_bar_white_24dp"
-                                android:tint="@color/colorAccent"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginLeft="72dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginStart="72dp"
-                                android:text="@string/restaurants_bars"
-                                android:textColor="@color/text_primary"
-                                android:textSize="16sp"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
                             android:id="@+id/train_action_toilets"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
@@ -207,35 +178,6 @@
                         </RelativeLayout>
 
                         <RelativeLayout
-                            android:id="@+id/train_action_attractions"
-                            android:layout_width="match_parent"
-                            android:layout_height="56dp"
-                            android:background="?android:attr/selectableItemBackground">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_account_balance_white_24dp"
-                                android:tint="@color/colorAccent"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginLeft="72dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginStart="72dp"
-                                android:text="@string/attractions"
-                                android:textColor="@color/text_primary"
-                                android:textSize="16sp"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
                             android:id="@+id/train_action_survey"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
@@ -259,37 +201,6 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginStart="72dp"
                                 android:text="@string/survey"
-                                android:textColor="@color/text_primary"
-                                android:textSize="16sp"/>
-
-                        </RelativeLayout>
-
-                        <RelativeLayout
-                            android:id="@+id/train_action_statistics"
-                            android:layout_width="match_parent"
-                            android:layout_height="56dp"
-                            android:background="?android:attr/selectableItemBackground">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_centerVertical="true"
-                                android:layout_marginLeft="16dp"
-                                android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_timeline_white_24dp"
-                                android:tint="@color/colorAccent"/>
-                            android:src="@drawable/ic_timeline_white_24dp"
-                            android:tint="?colorAccent"/>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_marginEnd="10dp"
-                                android:layout_marginLeft="72dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginStart="72dp"
-                                android:text="@string/statistics"
                                 android:textColor="@color/text_primary"
                                 android:textSize="16sp"/>
 
