@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Station;
 import com.dbhackathon.data.model.StationResponse;
@@ -91,7 +92,7 @@ public class MainActivity extends BaseActivity implements Utils.ActionListener<S
     public void onClick(Station station) {
         Intent intent = new Intent(this, StationActivity.class);
 
-        intent.putExtra(StationActivity.BUNDLE_STATION, station);
+        intent.putExtra(Config.EXTRA_STATION, station);
 
         startActivity(intent);
     }
