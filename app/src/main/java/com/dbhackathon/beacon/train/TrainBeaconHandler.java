@@ -16,9 +16,11 @@ import com.dbhackathon.beacon.AbsBeaconHandler;
 import com.dbhackathon.beacon.BeaconStorage;
 import com.dbhackathon.beacon.notification.CurrentTrip;
 import com.dbhackathon.beacon.notification.TripNotification;
+import com.dbhackathon.data.model.Poi;
 import com.dbhackathon.data.model.PoiResponse;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.network.TrainApi;
+import com.dbhackathon.util.Notifications;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
@@ -301,7 +303,9 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
 
                     @Override
                     public void onNext(PoiResponse poiResponse) {
-
+                        for (Poi poi : poiResponse.results()) {
+                            Notifications.poi(mContext, poi);
+                        }
                     }
                 });
     }
