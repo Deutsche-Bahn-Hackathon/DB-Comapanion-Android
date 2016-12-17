@@ -3,14 +3,12 @@ package com.dbhackathon.beacon.train;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 
 import com.dbhackathon.beacon.AbsBeaconHandler;
 import com.dbhackathon.beacon.BeaconStorage;
@@ -20,6 +18,8 @@ import com.dbhackathon.data.model.Poi;
 import com.dbhackathon.data.model.PoiResponse;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.network.TrainApi;
+import com.dbhackathon.util.DeviceUtils;
+import com.dbhackathon.util.NextObserver;
 import com.dbhackathon.util.Notifications;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -36,7 +36,6 @@ import java.util.TimerTask;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -64,8 +63,6 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
     private static TrainBeaconHandler INSTANCE;
 
     private final Map<Integer, TrainBeacon> mBeaconMap = new ConcurrentHashMap<>();
-
-    private byte mCycleCounter;
 
     private Subscription mSubscription;
 
@@ -254,20 +251,7 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
     }
 
 
-    @Nullable
-    private TrainBeacon getNearestBeacon() {
-        List<TrainBeacon> list = new ArrayList<>(mBeaconMap.values());
-
-        if (list.isEmpty()) {
-            return null;
-        }
-
-        Collections.sort(list, (o1, o2) -> (int) (o1.distance - o2.distance));
-
-        return list.get(0);
-    }
-
-    // ========================================= Poi ===============================================
+    // ========================================= POI ===============================================
 
     private void checkPois() {
         if (mSubscription != null) {
@@ -283,16 +267,7 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
         mSubscription = trainApi.getPois(mPos.latitude, mPos.longitude)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<PoiResponse>() {
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Timber.e(e, "Error loading poi");
-                    }
-
+                .subscribe(new NextObserver<PoiResponse>() {
                     @Override
                     public void onNext(PoiResponse poiResponse) {
                         for (Poi poi : poiResponse.results()) {
@@ -304,20 +279,13 @@ public final class TrainBeaconHandler extends AbsBeaconHandler implements Google
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+        if (!DeviceUtils.hasPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION)) {
             Timber.e("Missing permission!!!!1111!");
             return;
         }
-        Location location = LocationServices.FusedLocationApi.getLastLocation(mApiClient);
 
+        //noinspection MissingPermission
+        Location location = LocationServices.FusedLocationApi.getLastLocation(mApiClient);
         mPos = new LatLng(location.getLatitude(), location.getLongitude());
     }
 
