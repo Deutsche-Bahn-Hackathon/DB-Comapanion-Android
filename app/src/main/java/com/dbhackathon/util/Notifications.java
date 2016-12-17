@@ -26,7 +26,7 @@ public class Notifications {
                 .setColor(ContextCompat.getColor(context, R.color.material_brown_500));
 
         Intent resultIntent = new Intent(context, CoffeeActivity.class);
-        resultIntent.putExtra(Config.EXTRA_COFFEE, coffee.id);
+        resultIntent.putExtra(Config.EXTRA_COFFEE, coffee);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context, coffee.id.hashCode(), resultIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);

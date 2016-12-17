@@ -7,6 +7,8 @@
     <style name="AppTheme.Intro" parent="Theme.Intro"/>
     <style name="AppTheme.Settings" parent="Theme.Settings"/>
 
+    <style name="AppTheme.Coffee" parent="Theme.Coffee"/>
+
 
     <style name="BaseStyle" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:actionMenuTextColor">@color/text_primary</item>
@@ -64,6 +66,14 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowAllowEnterTransitionOverlap">true</item>
         <item name="android:windowAllowReturnTransitionOverlap">true</item>
+    </style>
+
+    <style name="Theme.Coffee" parent="Theme.Base">
+        <item name="colorPrimary">@color/material_brown_500</item>
+        <item name="colorPrimaryDark">@color/material_brown_700</item>
+        <item name="colorAccent">@color/material_brown_500</item>
+
+        <item name="colorButtonNormal">@color/material_brown_500</item>
     </style>
 
 
@@ -132,6 +142,18 @@
         <item name="colorControlNormal">@color/text_secondary_light</item>
         <item name="colorControlHighlight">@color/text_primary_light</item>
         <item name="colorControlActivated">@color/text_primary_light</item>
+    </style>
+
+    <style name="TextInputLayout.Brown" parent="Widget.Design.TextInputLayout">
+        <item name="colorPrimary">@color/material_brown_500</item>
+        <item name="colorPrimaryDark">@color/material_brown_500</item>
+        <item name="colorAccent">@color/material_brown_500</item>
+        <item name="colorControlNormal">@color/material_brown_500</item>
+    </style>
+
+    <style name="TextInputLayout.Brown.Hint" parent="Widget.Design.TextInputLayout">
+        <item name="android:textColor">@color/material_brown_500</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
 

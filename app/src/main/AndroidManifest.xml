@@ -49,6 +49,11 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name="com.dbhackathon.ui.coffee.CoffeeActivity"
+            android:theme="@style/AppTheme.Coffee"
+            android:label="@string/title_coffee" />
+
         <service
             android:name="org.altbeacon.beacon.service.BeaconService"
             android:enabled="true"
