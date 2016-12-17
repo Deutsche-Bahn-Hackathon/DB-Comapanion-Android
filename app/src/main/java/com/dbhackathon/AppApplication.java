@@ -2,6 +2,7 @@ package com.dbhackathon;
 
 import android.app.Application;
 
+import com.dbhackathon.beacon.BeaconHandler;
 import com.dbhackathon.data.network.RestClient;
 import com.dbhackathon.data.realm.RealmHelper;
 
@@ -37,8 +38,6 @@ public class AppApplication extends Application {
     }
 
     private void initRealm() {
-        // Initialize realms. We do not need to init the user realm helper here as it will get
-        // initialized as soon as it is needed.
         Realm.init(this);
 
         RealmLog.setLevel(LogLevel.INFO);
@@ -51,13 +50,9 @@ public class AppApplication extends Application {
     }
 
     public void initBeacons() {
-        //if (Utils.areBeaconsEnabled(this)) {
         Timber.e("Starting beacons");
 
-        //BeaconHandler beaconHandler = BeaconHandler.get(getApplicationContext());
-        //beaconHandler.start();
-        /*} else {
-            Timber.w("Beacons are disabled");
-        }*/
+        BeaconHandler beaconHandler = BeaconHandler.get(getApplicationContext());
+        beaconHandler.start();
     }
 }
