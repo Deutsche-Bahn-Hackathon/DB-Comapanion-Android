@@ -2,8 +2,10 @@ package com.dbhackathon.ui.train;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Train;
@@ -56,7 +58,29 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
+            case R.id.train_action_alarm:
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.train_action_bar:
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.train_action_toilets:
+                new AlertDialog.Builder(this, R.style.DialogStyle)
+                        .setTitle(getString(R.string.toilets))
+                        .setMessage("Please walk in direction of travel for two wagons!")
+                        .setNeutralButton(android.R.string.ok, null)
+                        .create()
+                        .show();
+                break;
+            case R.id.train_action_attractions:
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.train_action_survey:
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.train_action_statistics:
+                Toast.makeText(this, "Not implemented yet!", Toast.LENGTH_LONG).show();
+                break;
         }
     }
 }

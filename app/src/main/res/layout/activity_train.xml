@@ -2,9 +2,9 @@
 
 
 <android.support.v4.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -19,7 +19,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="?attr/actionBarSize">
+            android:layout_marginTop="?android:attr/actionBarSize">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -98,14 +98,14 @@
                             android:layout_marginStart="@dimen/padding_normal"
                             android:layout_marginTop="12dp"
                             android:text="Pick an action"
-                            android:textColor="?colorAccent"
+                            android:textColor="@color/colorAccent"
                             android:textStyle="bold"/>
 
                         <RelativeLayout
                             android:id="@+id/train_action_alarm"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -114,7 +114,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_access_alarm_white_24dp"
-                                android:tint="?colorAccent"/>
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                             android:id="@+id/train_action_bar"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -143,7 +143,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_local_bar_white_24dp"
-                                android:tint="?colorAccent"/>
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -163,7 +163,7 @@
                             android:id="@+id/train_action_toilets"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -172,7 +172,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_event_seat_white_24dp"
-                                android:tint="?colorAccent"/>
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -192,7 +192,7 @@
                             android:id="@+id/train_action_attractions"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -201,7 +201,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_account_balance_white_24dp"
-                                android:tint="?colorAccent"/>
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -221,7 +221,7 @@
                             android:id="@+id/train_action_survey"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -230,7 +230,7 @@
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
                                 android:src="@drawable/ic_assessment_white_24dp"
-                                android:tint="?colorAccent"/>
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -250,7 +250,7 @@
                             android:id="@+id/train_action_statistics"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?android:attr/selectableItemBackground">
 
                             <ImageView
                                 android:layout_width="24dp"
@@ -258,8 +258,8 @@
                                 android:layout_centerVertical="true"
                                 android:layout_marginLeft="16dp"
                                 android:layout_marginStart="16dp"
-                                android:src="@drawable/ic_timeline_black_24dp"
-                                android:tint="?colorAccent"/>
+                                android:src="@drawable/ic_timeline_white_24dp"
+                                android:tint="@color/colorAccent"/>
 
                             <TextView
                                 android:layout_width="wrap_content"
