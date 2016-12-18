@@ -4,9 +4,7 @@ DB Companion Android application.
 
 ## Usage
 
-Download and install the DBCompanion.apk.
-
-If you want the latest version, you have build it on your own.
+Clone the repository, (`git clone https://github.com/Deutsche-Bahn-Hackathon/DB-Comapanion-Android.git`), open the cloned project with android studio and build the app.
 
 ## Contributing
 
@@ -18,7 +16,7 @@ If you want the latest version, you have build it on your own.
 
 ## History
 
-This is the Android application of a winning project at the DBHackathon Berlin 2016, so it has been created in 24h.
+This is the Android application of a winning project at the DBHackathon Berlin in December 2016, so it was created in a timespan of 24h.
 
 ## Credits
 
