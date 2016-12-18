@@ -45,9 +45,9 @@ public final class Utils {
         }
     }
 
-    private static boolean isPackageInstalled(String packagename, PackageManager packageManager) {
+    private static boolean isPackageInstalled(String packageName, PackageManager packageManager) {
         try {
-            packageManager.getPackageInfo(packagename, PackageManager.GET_ACTIVITIES);
+            packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             return true;
         } catch (PackageManager.NameNotFoundException e) {
             return false;

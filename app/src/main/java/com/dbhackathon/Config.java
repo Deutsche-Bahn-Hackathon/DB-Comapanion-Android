@@ -24,4 +24,6 @@ public class Config {
 
     public static final int CAMERA_PIC_REQUEST = 1337;
     public static final String EXTRA_POI = "com.dbhackathon.EXTRA_POI";
+    public static final String EXTRA_X_POS = "com.dbhackathon.EXTRA_X_POS";
+    public static final String EXTRA_Y_POS = "com.dbhackathon.EXTRA_Y_POS";
 }

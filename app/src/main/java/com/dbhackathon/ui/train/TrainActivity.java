@@ -66,6 +66,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
 
         mTrain = intent.getParcelableExtra(Config.EXTRA_TRAIN);
 
+        // check for train to show
+        // if no train is passed via intent, show the train of the current trip, if availaible
         if (mTrain == null) {
             CurrentTrip currentTrip = BeaconStorage.getInstance(this).getCurrentTrip();
             if (currentTrip != null) {
@@ -90,7 +92,10 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
             new AlertDialog.Builder(this, R.style.DialogStyle)
                     .setTitle("No train nearby")
                     .setMessage("Make sure you are in a train and bluetooth is enabled.")
-                    .setPositiveButton(android.R.string.ok, (dialog, which) -> dialog.dismiss())
+                    .setPositiveButton(android.R.string.ok, (dialog, which) -> {
+                        dialog.dismiss();
+                        finish();
+                    })
                     .create()
                     .show();
 
@@ -131,7 +136,7 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
                 new AlertDialog.Builder(this, R.style.DialogStyle)
                         .setTitle("Delete alert?")
                         .setMessage("Do you really want to delete this alert? This cannot be undone.")
-                        .setNegativeButton("Cancel", (dialog, which) -> dialog.dismiss())
+                        .setNegativeButton("Cancel", null)
                         .setPositiveButton("Delete", (dialog, which) -> {
                             mDeleteAlarm.setVisibility(View.GONE);
                             Settings.setHasAlarms(TrainActivity.this, false);
@@ -164,6 +169,8 @@ public class TrainActivity extends BaseActivity implements View.OnClickListener,
 
                 SparseArray<Barcode> barcodes = barcodeDetector.detect(frame);
 
+                // Check if some qrcodes were scanned and recognized
+                // If no valid qrcodes were recognized, show a snackbar which allows the user to rescan a code
                 if (barcodes.size() > 0) {
                     Utils.openCustomTab(barcodes.get(barcodes.keyAt(0)).displayValue, this);
                 } else {

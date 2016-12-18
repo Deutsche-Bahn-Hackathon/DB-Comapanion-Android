@@ -68,7 +68,7 @@ public class CoffeeActivity extends RxAppCompatActivity implements View.OnClickL
 
         setupSpinner();
 
-        mDescriptionText.setText(String.format(Locale.getDefault(), "Dou you want to order a %s for %s? A servant will pass by soon and distribute it.",  mCoffees[0].name, format.format(mSelectedCoffee.price)));
+        mDescriptionText.setText(String.format(Locale.getDefault(), "Dou you want to order a %s for %s? A servant will pass by soon and distribute it.", mCoffees[0].name, format.format(mSelectedCoffee.price)));
         mButton.setText(String.format(Locale.getDefault(), "Order %s", format.format(mCoffees[0].price)));
 
         mButton.setOnClickListener(this);
@@ -95,8 +95,12 @@ public class CoffeeActivity extends RxAppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.coffee_confirm_button:
                 if (mSelectedCoffee != null) {
-                    Toast.makeText(getApplicationContext(), "Thank you for your order!", Toast.LENGTH_LONG).show();
-                    finish();
+                    if (!mSeatNumber.getText().toString().isEmpty()) {
+                        Toast.makeText(getApplicationContext(), "Thank you for your order!", Toast.LENGTH_LONG).show();
+                        finish();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Please enter a valid seat number!", Toast.LENGTH_LONG).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "Please select a coffee!", Toast.LENGTH_LONG).show();
                 }
@@ -104,6 +108,9 @@ public class CoffeeActivity extends RxAppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * Sets up the spinner, loads the data and sets the first item as selected
+     */
     private void setupSpinner() {
         List<String> selectableItems = new ArrayList<>();
 
@@ -111,7 +118,8 @@ public class CoffeeActivity extends RxAppCompatActivity implements View.OnClickL
             selectableItems.add(coffee.name);
         }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, selectableItems);
+        ArrayAdapter<String> dataAdapter =
+                new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, selectableItems);
 
         mSpinner.setAdapter(dataAdapter);
 
@@ -124,7 +132,9 @@ public class CoffeeActivity extends RxAppCompatActivity implements View.OnClickL
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         mSelectedCoffee = mCoffees[position];
 
-        mDescriptionText.setText(String.format(Locale.getDefault(), "Dou you want to order a %s for %s? A servant will pass by soon and distribute it.",  mSelectedCoffee.name, format.format(mSelectedCoffee.price)));
+        mDescriptionText.setText(String.format(Locale.getDefault(),
+                "Dou you want to order a %s for %s? A servant will pass by soon and distribute it.",
+                mSelectedCoffee.name, format.format(mSelectedCoffee.price)));
         mButton.setText(String.format(Locale.getDefault(), "Order %s", format.format(mSelectedCoffee.price)));
     }
 

@@ -26,7 +26,6 @@ import timber.log.Timber;
 
 public class PoiActivity extends BaseActivity implements OnMapReadyCallback {
 
-    private GoogleMap mMap;
     private Poi mPoi;
 
     @Override
@@ -78,9 +77,7 @@ public class PoiActivity extends BaseActivity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        mMap.addMarker(new MarkerOptions()
+        googleMap.addMarker(new MarkerOptions()
                 .position(new LatLng(Double.parseDouble(mPoi.lat()), Double.parseDouble(mPoi.lng())))
                 .title(mPoi.address())
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));

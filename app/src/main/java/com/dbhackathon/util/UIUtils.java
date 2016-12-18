@@ -50,7 +50,7 @@ public final class UIUtils {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public static void styleRecentTasksEntry(Activity activity, int color) {
+    public static synchronized void styleRecentTasksEntry(Activity activity, int color) {
         Resources resources = activity.getResources();
         String label = resources.getString(activity.getApplicationInfo().labelRes);
 

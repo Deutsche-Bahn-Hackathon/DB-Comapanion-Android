@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class Notifications {
 
-    public static void coffee(Context context, Coffee[] coffees) {
+    public static void coffee(Context context, Coffee... coffees) {
         Preconditions.checkNotNull(context, "context == null");
         Preconditions.checkNotNull(coffees, "coffee == null");
 

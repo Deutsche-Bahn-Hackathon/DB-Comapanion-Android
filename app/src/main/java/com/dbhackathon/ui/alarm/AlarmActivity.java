@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 
+import com.dbhackathon.Config;
 import com.dbhackathon.R;
 import com.dbhackathon.data.model.Station;
 import com.dbhackathon.ui.BaseActivity;
@@ -32,9 +33,6 @@ import butterknife.ButterKnife;
  */
 public class AlarmActivity extends BaseActivity {
 
-    public static final String EXTRA_X_POS = "com.dbhackathon.EXTRA_X_POS";
-    public static final String EXTRA_Y_POS = "com.dbhackathon.EXTRA_Y_POS";
-
     private int mSearchX;
     private int mSearchY;
 
@@ -48,9 +46,10 @@ public class AlarmActivity extends BaseActivity {
         setContentView(R.layout.activity_alarm);
         ButterKnife.bind(this);
 
-        mSearchX = (int) intent.getFloatExtra(EXTRA_X_POS, 0);
-        mSearchY = (int) intent.getFloatExtra(EXTRA_Y_POS, 0);
+        mSearchX = (int) intent.getFloatExtra(Config.EXTRA_X_POS, 0);
+        mSearchY = (int) intent.getFloatExtra(Config.EXTRA_Y_POS, 0);
 
+        //noinspection ConstantConditions
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = getToolbar();
         toolbar.setNavigationOnClickListener(view -> navigateUpOrBack(this));
@@ -59,22 +58,23 @@ public class AlarmActivity extends BaseActivity {
 
         overridePendingTransition(0, 0);
 
-        List<Station> mitems = new ArrayList<>();
-        mitems.add(Station.create("8000261", "München Hbf", "", ""));
-        mitems.add(Station.create("8000183", "Ingolstadt Hbf", "", ""));
-        mitems.add(Station.create("8096025", "Nürnberg", "", ""));
-        mitems.add(Station.create("8001844", "Erlangen", "", ""));
-        mitems.add(Station.create("8000025", "Bamberg", "", ""));
-        mitems.add(Station.create("8000228", "Lichtenfels", "", ""));
-        mitems.add(Station.create("8011956", "Jena Paradies", "", ""));
-        mitems.add(Station.create("8010240", "Naumburg (Saale) Hbf", "", ""));
-        mitems.add(Station.create("8010205", "Leipzig Hbf", "", ""));
-        mitems.add(Station.create("8010050", "Bitterfeld", "", ""));
-        mitems.add(Station.create("8010222", "Lutherstadt Wittenberg Hbf", "", ""));
-        mitems.add(Station.create("8011113", "Berlin Südkreuz", "", ""));
-        mitems.add(Station.create("8011160", "Berlin Hbf", "", ""));
+        // TODO: 18.12.16 Use next stations where the train arrives
+        List<Station> items = new ArrayList<>();
+        items.add(Station.create("8000261", "München Hbf", "", ""));
+        items.add(Station.create("8000183", "Ingolstadt Hbf", "", ""));
+        items.add(Station.create("8096025", "Nürnberg", "", ""));
+        items.add(Station.create("8001844", "Erlangen", "", ""));
+        items.add(Station.create("8000025", "Bamberg", "", ""));
+        items.add(Station.create("8000228", "Lichtenfels", "", ""));
+        items.add(Station.create("8011956", "Jena Paradies", "", ""));
+        items.add(Station.create("8010240", "Naumburg (Saale) Hbf", "", ""));
+        items.add(Station.create("8010205", "Leipzig Hbf", "", ""));
+        items.add(Station.create("8010050", "Bitterfeld", "", ""));
+        items.add(Station.create("8010222", "Lutherstadt Wittenberg Hbf", "", ""));
+        items.add(Station.create("8011113", "Berlin Südkreuz", "", ""));
+        items.add(Station.create("8011160", "Berlin Hbf", "", ""));
 
-        AlarmAdapter adapter = new AlarmAdapter(this, mitems);
+        AlarmAdapter adapter = new AlarmAdapter(this, items);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
