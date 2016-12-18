@@ -1,4 +1,4 @@
-package com.dbhackathon.util.iwillkillmyselfnow;
+package com.dbhackathon.util;
 
 import com.dbhackathon.data.model.DateTime;
 import com.dbhackathon.data.model.Facility;

@@ -2,8 +2,8 @@ package com.dbhackathon.data.network;
 
 import android.content.Context;
 
+import com.dbhackathon.util.AutoValueGsonAdapterFactory;
 import com.dbhackathon.util.Preconditions;
-import com.dbhackathon.util.iwillkillmyselfnow.AutoValueGsonAdapterFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
