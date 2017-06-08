@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import com.dbhackathon.BuildConfig;
 import com.dbhackathon.beacon.notification.CurrentTrip;
 import com.dbhackathon.beacon.notification.TripNotification;
-import com.dbhackathon.beacon.station.StationBeacon;
 import com.dbhackathon.beacon.train.TrainBeacon;
 import com.dbhackathon.util.AutoValueGsonAdapterFactory;
 import com.dbhackathon.util.Utils;
@@ -32,7 +31,6 @@ public final class BeaconStorage {
     private static final String STORAGE_NAME = BuildConfig.APPLICATION_ID + "_beacons";
 
     private static final String PREF_BEACON_CURRENT_TRIP = "pref_beacon_current_trip";
-    private static final String PREF_BEACON_CURRENT_BUS_STOP = "pref_beacon_current_bus_stop";
     private static final String PREF_BUS_BEACON_MAP = "pref_bus_beacon_map";
     private static final String PREF_BUS_BEACON_MAP_LAST = "pref_bus_beacon_map_last";
 
@@ -45,16 +43,21 @@ public final class BeaconStorage {
     private static BeaconStorage INSTANCE;
 
     private CurrentTrip mCurrentTrip;
-    private StationBeacon mCurrentBusStop;
 
     private static final Gson GSON = new GsonBuilder()
             .registerTypeAdapterFactory(new AutoValueGsonAdapterFactory())
             .create();
 
+    // TODO: 22/12/2016 Remove this beacon once we have real data
+    private CurrentTrip DEFAULT_TRIP;
+
+
     private BeaconStorage(Context context) {
         mContext = context;
 
         mPrefs = context.getSharedPreferences(STORAGE_NAME, Context.MODE_PRIVATE);
+
+        DEFAULT_TRIP = new CurrentTrip(mContext, new TrainBeacon(1206, 2201));
     }
 
     public static BeaconStorage getInstance(Context context) {
@@ -67,14 +70,6 @@ public final class BeaconStorage {
         }
 
         return INSTANCE;
-    }
-
-    public void clear() {
-        Timber.e("Clearing beacon storage");
-
-        mPrefs.edit().remove(PREF_BEACON_CURRENT_TRIP).apply();
-        mPrefs.edit().remove(PREF_BUS_BEACON_MAP).apply();
-        mPrefs.edit().remove(PREF_BUS_BEACON_MAP_LAST).apply();
     }
 
 
@@ -101,6 +96,10 @@ public final class BeaconStorage {
     public CurrentTrip getCurrentTrip() {
         if (mCurrentTrip == null) {
             mCurrentTrip = readCurrentTrip();
+
+            if (mCurrentTrip == null) {
+                mCurrentTrip = DEFAULT_TRIP;
+            }
         }
 
         return mCurrentTrip;
@@ -134,64 +133,6 @@ public final class BeaconStorage {
 
         return null;
     }
-
-    public boolean hasCurrentTrip() {
-        return getCurrentTrip() != null;
-    }
-
-
-    // ================================= CURRENT BUS STOP ==========================================
-
-    /*public void saveCurrentBusStop(BusStopBeacon beacon) {
-        mCurrentBusStop = beacon;
-
-        if (beacon == null) {
-            mPrefs.edit().remove(PREF_BEACON_CURRENT_BUS_STOP).apply();
-        } else {
-            try {
-                String json = GSON.toJson(beacon);
-                mPrefs.edit().putString(PREF_BEACON_CURRENT_BUS_STOP, json).apply();
-            } catch (Exception e) {
-                Utils.logException(e);
-            }
-        }
-    }
-
-    public BusStopBeacon getCurrentBusStop() {
-        if (mCurrentBusStop == null) {
-            mCurrentBusStop = readCurrentBusStop();
-        }
-
-        return mCurrentBusStop;
-    }
-
-    private BusStopBeacon readCurrentBusStop() {
-        String json = mPrefs.getString(PREF_BEACON_CURRENT_BUS_STOP, null);
-        if (json == null) {
-            return null;
-        }
-
-        try {
-            BusStopBeacon beacon = GSON.fromJson(json, BusStopBeacon.class);
-
-            if (beacon != null) {
-                com.davale.sasabus.data.realm.busstop.BusStop station =
-                        BusStopRealmHelper.getStation(beacon.id);
-
-                if (station == null) {
-                    return null;
-                }
-
-                beacon.station = new BusStop(station);
-            }
-
-            return beacon;
-        } catch (Exception e) {
-            Utils.logException(e);
-        }
-
-        return null;
-    }*/
 
 
     // ==================================== BEACON MAP =============================================

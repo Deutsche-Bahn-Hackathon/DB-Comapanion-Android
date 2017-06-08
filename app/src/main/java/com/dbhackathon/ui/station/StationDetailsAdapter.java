@@ -62,7 +62,7 @@ class StationDetailsAdapter extends RecyclerView.Adapter<StationDetailsAdapter.T
         holder.name.setText(train.name());
 
         holder.destination.setText(train.stop());
-        holder.track.setText("Track " + train.track());
+        holder.track.setText("Platform " + train.track());
     }
 
     @Override

@@ -15,7 +15,7 @@ public class StationBeacon extends AbsBeacon {
     StationBeacon(int major, int minor) {
         super(major, minor);
 
-        station = Station.create("008011160", "Berlin Bhf", "52.525589", "13.369548");
+        station = Station.create("008011160", "Berlin Hbf", "52.525589", "13.369548");
     }
 
     public Station station() {

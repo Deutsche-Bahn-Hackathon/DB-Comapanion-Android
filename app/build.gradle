@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 buildscript {
     repositories {
         jcenter()
@@ -13,7 +15,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
+// apply plugin: 'realm-android'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -27,7 +29,7 @@ repositories {
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '25.0.1'
+    buildToolsVersion '25.0.2'
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -61,9 +63,9 @@ android {
     }
 
     retrolambda {
-        if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_MAC)) {
-            jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_73.jdk/Contents/Home'
-        } else if (org.apache.tools.ant.taskdefs.condition.Os.isFamily(org.apache.tools.ant.taskdefs.condition.Os.FAMILY_UNIX)) {
+        if (Os.isFamily(Os.FAMILY_MAC)) {
+            jdk '/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home'
+        } else if (Os.isFamily(Os.FAMILY_UNIX)) {
             jdk '/usr/lib/jvm/java-1.8.0-openjdk-amd64/'
         } else {
             throw new GradleException('Windows jdk path needs to be inserted!')
@@ -115,16 +117,19 @@ dependencies {
     compile "com.squareup.okhttp3:okhttp:$OKHTTP_VERSION"
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
+    // AutoValue
+    compile 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
 
+    apt 'com.google.auto.value:auto-value:1.2-rc1'
+    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
+
+    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
     provided 'com.jakewharton.auto.value:auto-value-annotations:1.2-update1'
+
     annotationProcessor "com.google.auto.value:auto-value:1.2"
     annotationProcessor 'com.ryanharter.auto.value:auto-value-parcel:0.2.3-rc2'
     annotationProcessor 'com.ryanharter.auto.value:auto-value-gson:0.3.2-rc1'
     annotationProcessor 'com.squareup:javapoet:1.7.0'
-    apt 'com.google.auto.value:auto-value:1.2-rc1'
-    provided 'com.ryanharter.auto.value:auto-value-gson:0.4.5'
-    apt 'com.ryanharter.auto.value:auto-value-parcel:0.2.5'
-    compile 'com.ryanharter.auto.value:auto-value-parcel-adapter:0.2.5'
 
     // ReactiveX
     compile 'io.reactivex:rxjava:1.2.3'

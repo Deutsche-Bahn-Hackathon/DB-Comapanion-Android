@@ -52,6 +52,8 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
         }
     };
 
+    private StationBeacon DEFAULT_BEACON = new StationBeacon(1, 1);
+
 
     private StationBeaconHandler(Context context) {
         super(context);
@@ -165,6 +167,10 @@ public final class StationBeaconHandler extends AbsBeaconHandler {
     }
 
     public StationBeacon getCurrentStation() {
-        return mCurrentStation;
+        if (mCurrentStation != null) {
+            return mCurrentStation;
+        }
+
+        return DEFAULT_BEACON;
     }
 }
